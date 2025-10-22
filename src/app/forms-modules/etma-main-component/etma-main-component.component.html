@@ -32,14 +32,8 @@
 
     <!-- Transaction Content -->
     <div class="max-w-screen-xl mx-auto" *ngIf="activeSubPath === 'transaction'">
-        <!-- Status Tabs -->
-        <app-status-tabs 
-            [activeTab]="activeTab"
-            (tabChange)="onTabChange($event)">
-        </app-status-tabs>
-
         <!-- GTG Load Trial Reports Table View -->
-        <div class="command-header">
+        <div class="command-header mb-4">
             <div class="command-title-block">
                 <i class="pi pi-file-alt"></i>
                 <div>
@@ -69,6 +63,12 @@
                 </div>
             </div>
         </div>
+
+        <!-- Status Tabs -->
+        <app-status-tabs 
+            [activeTab]="activeTab"
+            (tabChange)="onTabChange($event)">
+        </app-status-tabs>
 
         <!-- Paginated Table -->
         <app-paginated-table *ngIf="toggleTable"

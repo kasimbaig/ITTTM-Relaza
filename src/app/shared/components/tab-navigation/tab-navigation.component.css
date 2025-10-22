@@ -1,7 +1,7 @@
 .tab-navigation {
   margin-bottom: 1rem;
   width: 100%;
-  border: 1px solid #000000;
+  border: 1px solid #282828;
   border-radius: 8px;
   overflow: hidden;
 }
@@ -21,7 +21,7 @@
   font-size: 14px;
   font-weight: 500;
   transition: all 0.2s ease;
-  border-right: 1px solid #000000;
+  border-right: 1px solid #282828;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -33,9 +33,9 @@
 }
 
 .tab-button.active {
-  background-color: #3b82f6;
+  background-color: #282828;
   color: white;
-  border-bottom: 3px solid #1d4ed8;
+  border-bottom: 3px solid #282828;
 }
 
 .tab-button.inactive {

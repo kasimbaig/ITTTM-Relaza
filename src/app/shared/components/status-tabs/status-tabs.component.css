@@ -11,7 +11,7 @@
 
 .tabs-nav {
   display: flex;
-  background: #1e40af;
+  background: linear-gradient(135deg, #282828 0%, #5c5050 100%);
   border-bottom: 1px solid #e2e8f0;
 }
 
@@ -50,9 +50,9 @@
 
 .tab-button.active {
   background: white;
-  color: black;
+  color: #282828;
   font-weight: 600;
-  box-shadow: 0 -2px 0 #1e40af inset;
+  box-shadow: 0 -2px 0 #282828 inset;
 }
 
 .tab-button.active::after {
@@ -62,7 +62,7 @@
   left: 0;
   right: 0;
   height: 2px;
-  background: #1e40af;
+  background: #282828;
 }
 
 .tab-icon {
@@ -92,6 +92,6 @@
   }
   
   .tab-button.active {
-    box-shadow: 2px 0 0 #1e40af inset;
+    box-shadow: 2px 0 0 #282828 inset;
   }
 }

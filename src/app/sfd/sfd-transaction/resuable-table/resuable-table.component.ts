@@ -9,20 +9,16 @@ import { DropdownModule } from 'primeng/dropdown';
 import { DialogModule } from 'primeng/dialog';
 import { CalendarModule } from 'primeng/calendar';
 import { ToastModule } from 'primeng/toast';
-import { MatMenuModule } from '@angular/material/menu';
-import { MatButtonModule } from '@angular/material/button';
+import { TooltipModule } from 'primeng/tooltip';
 import { CheckboxModule } from 'primeng/checkbox';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-resuable-table',
   standalone: true,
-  imports:[CommonModule,
-     CommonModule,
+  imports: [
+    CommonModule,
     ReactiveFormsModule,
     FormsModule,
     TableModule,
@@ -32,14 +28,9 @@ import { ConfirmationService } from 'primeng/api';
     DialogModule,
     CalendarModule,
     ToastModule,
-    MatMenuModule,
-    MatButtonModule,
-    CheckboxModule,
-    MatDatepickerModule,
-    MatFormFieldModule,
-    MatInputModule,
-    ToastModule,
-    ],
+    TooltipModule,
+    CheckboxModule
+  ],
   templateUrl: './resuable-table.component.html',
   styleUrls: ['./resuable-table.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush 

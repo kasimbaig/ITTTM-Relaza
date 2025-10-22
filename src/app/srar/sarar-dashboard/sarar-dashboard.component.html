@@ -1,65 +1,66 @@
 <!-- Main Container with Enhanced Interactive Design -->
 <div class="min-h-screen p-4 sm:p-6  text-gray-800 overflow-x-hidden">
   <!-- Header Section with Enhanced Interactivity -->
-  <div class="relative bg-white/80 backdrop-blur-sm rounded-2xl p-4 sm:p-6 mb-4 sm:mb-6 border border-white/20 shadow-xl animate-fade-in overflow-hidden group hover:shadow-2xl transition-all duration-500">
+  <div class="relative rounded-2xl p-4 sm:p-6 mb-4 sm:mb-6 border border-gray-600/20 shadow-xl animate-fade-in overflow-hidden group hover:shadow-2xl transition-all duration-500" style="background: linear-gradient(135deg, var(--primary-gradient-start) 0%, var(--primary-gradient-end) 100%);">
     <!-- Animated Background Pattern -->
-    <div class="absolute inset-0 bg-gradient-to-r from-blue-600/5 via-indigo-600/5 to-purple-600/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+    <div class="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500" style="background: linear-gradient(135deg, rgba(40, 40, 40, 0.1) 0%, rgba(92, 80, 80, 0.1) 100%);"></div>
     
     <!-- Content -->
     <div class="relative z-10 flex items-center justify-center text-center mb-6">
       <!-- Enhanced Navy Emblem -->
       <div class="mr-4 sm:mr-6">
-        <div class="w-12 h-12 sm:w-16 sm:h-16 bg-gradient-to-br from-blue-500 via-blue-600 to-indigo-700 rounded-2xl flex items-center justify-center shadow-lg border-2 border-blue-300/50 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500">
+        <div class="w-12 h-12 sm:w-16 sm:h-16 rounded-2xl flex items-center justify-center shadow-lg border-2 border-gray-500/50 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500" style="background: linear-gradient(135deg, var(--primary-gradient-start) 0%, var(--primary-gradient-end) 100%);">
           <svg class="w-6 h-6 sm:w-8 sm:h-8 text-white group-hover:animate-pulse" fill="currentColor" viewBox="0 0 24 24">
             <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
           </svg>
-        </div>
+        </div>/
       </div>
       
       <!-- Enhanced Main Title -->
       <div class="flex-1">
-        <h1 class="text-gray-800 text-xl sm:text-2xl lg:text-3xl font-bold m-0 tracking-wide leading-tight group-hover:scale-105 transition-transform duration-300">
-          <span class="bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 bg-clip-text text-transparent animate-gradient">INDIAN NAVY</span>
-          <span class="text-gray-600 font-semibold mx-2">SHIPS & SUBMARINES</span>
-          <span class="text-blue-500 font-medium">DETAILS</span>
+        <h1 class="text-white text-xl sm:text-2xl lg:text-3xl font-bold m-0 tracking-wide leading-tight group-hover:scale-105 transition-transform duration-300 whitespace-nowrap">
+          <span class="bg-gradient-to-r from-white via-gray-100 to-gray-200 bg-clip-text text-transparent animate-gradient">INDIAN NAVY</span>
+          <span class="text-white font-semibold mx-2">SHIPS & SUBMARINES</span>
+          <span class="text-white font-medium">DETAILS</span>
         </h1>
       </div>
       
       <!-- Enhanced Status Section -->
-      <div class="flex flex-col items-end gap-2">
-        <div class="bg-white/50 backdrop-blur-sm px-4 py-2 rounded-xl border border-white/30 shadow-sm">
-          <p class="text-gray-600 text-sm font-semibold tracking-wide">
-            <span class="text-blue-600 font-bold">PAN NAVY</span>
-            <span class="mx-2 text-gray-400">•</span>
-            <span class="text-gray-500">{{ currentDate }}</span>
+      <!-- <div class="flex flex-col items-end gap-2">
+        <div class="bg-white/20 backdrop-blur-sm px-4 py-2 rounded-xl border border-white/30 shadow-sm">
+          <p class="text-white text-sm font-semibold tracking-wide">
+            <span class="text-white font-bold">PAN NAVY</span>
+            <span class="mx-2 text-gray-300">•</span>
+            <span class="text-gray-300">{{ currentDate }}</span>
           </p>
         </div>
-        <div class="flex items-center gap-2 bg-gradient-to-r from-emerald-100 to-green-100 backdrop-blur-sm px-3 py-2 rounded-xl border border-emerald-200/50 shadow-sm hover:shadow-md transition-all duration-300">
-          <div class="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
-          <span class="text-emerald-700 text-sm font-medium">LIVE DATA</span>
+        <div class="flex items-center gap-2 bg-gradient-to-r from-green-500/20 to-emerald-500/20 backdrop-blur-sm px-3 py-2 rounded-xl border border-green-400/30 shadow-sm hover:shadow-md transition-all duration-300">
+          <div class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+          <span class="text-green-300 text-sm font-medium">LIVE DATA</span>
         </div>
-      </div>
+      </div> -->
     </div>
     
     <!-- Tab Container with Enhanced Styling -->
     <div class="relative flex justify-center items-center">
-      <div class="flex flex-wrap gap-3 sm:gap-2 p-2 bg-gray-100/50 rounded-2xl backdrop-blur-sm border border-gray-200/30 shadow-inner">
+      <div class="flex flex-wrap gap-3 sm:gap-2 p-2 rounded-2xl backdrop-blur-sm border border-gray-600/30 shadow-inner" style="background: rgba(40, 40, 40, 0.3);">
         <span 
           *ngFor="let tab of tabs; let i = index" 
           type="button"
           class="relative px-4 sm:px-8 py-2 sm:py-3 rounded-xl cursor-pointer font-bold text-sm sm:text-base transition-all duration-700 ease-out group overflow-hidden min-w-[80px] sm:min-w-[120px]"
           [style.animation-delay]="(0.2 + i * 0.1) + 's'"
           [ngClass]="{
-            'bg-gradient-to-r from-blue-600 via-indigo-600 to-purple-600 text-white shadow-2xl shadow-blue-500/40 scale-105 -translate-y-1': activeTab === tab,
-            'bg-white/80 border border-gray-300/40 text-gray-600 hover:bg-gradient-to-r hover:from-blue-50 hover:to-indigo-50 hover:border-blue-300/60 hover:text-blue-700 hover:scale-102 hover:-translate-y-0.5': activeTab !== tab
+            'text-white shadow-2xl scale-105 -translate-y-1': activeTab === tab,
+            'border border-gray-500/40 text-gray-200 hover:border-gray-400/60 hover:text-white hover:scale-102 hover:-translate-y-0.5': activeTab !== tab
           }"
+          [style.background]="activeTab === tab ? 'linear-gradient(135deg, var(--primary-gradient-start) 0%, var(--primary-gradient-end) 100%)' : 'rgba(40, 40, 40, 0.5)'"
           (click)="onTabChange(tab)">
           
           <!-- Glowing effect for active tab -->
-          <div *ngIf="activeTab === tab" class="absolute inset-0 bg-gradient-to-r from-blue-400 via-indigo-400 to-purple-400 opacity-0 group-hover:opacity-30 transition-opacity duration-500 rounded-xl blur-sm"></div>
+          <div *ngIf="activeTab === tab" class="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-500 rounded-xl blur-sm" style="background: linear-gradient(135deg, rgba(40, 40, 40, 0.6) 0%, rgba(92, 80, 80, 0.6) 100%);"></div>
           
           <!-- Shimmer effect for inactive tabs -->
-          <div *ngIf="activeTab !== tab" class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"></div>
+          <div *ngIf="activeTab !== tab" class="absolute inset-0 bg-gradient-to-r from-transparent via-gray-300/20 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-out"></div>
           
           <!-- Tab content -->
           <div class="relative z-10 flex items-center justify-center gap-2">
@@ -71,7 +72,7 @@
           </div>
           
           <!-- Bottom indicator line -->
-          <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-blue-400 to-purple-400 rounded-full transition-all duration-500"
+          <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 h-1 bg-gradient-to-r from-gray-400 to-gray-600 rounded-full transition-all duration-500"
                [ngClass]="{
                  'w-full opacity-100': activeTab === tab,
                  'w-0 opacity-0 group-hover:w-1/2 group-hover:opacity-50': activeTab !== tab

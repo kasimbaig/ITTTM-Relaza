@@ -145,44 +145,57 @@
         <ng-template pTemplate="body" let-rowData let-rowIndex="rowIndex">
             <tr class="border-b border-gray-200 hover:bg-gray-50 transition-colors duration-150">
                 <td *ngIf="isAction" class="px-4 py-3 text-center">
-                    <button mat-button [matMenuTriggerFor]="actionsMenu"   class="px-3 py-1.5 bg-blue-600 text-red-600  rounded-md hover:bg-blue-600 -700 transition-colors duration-200">
-                        <small>Actions</small>
-                    </button>
-                    <mat-menu #actionsMenu="matMenu" class="shadow-lg border border-gray-200 bg-gray-100 rounded-md">
-                        <button (click)="viewEvent.emit(rowData)" *ngIf="isView" mat-menu-item 
-                            class="flex items-center justify-start gap-3 px-4 py-3 w-full hover:bg-blue-600 -50 text-blue-600 hover:text-blue-800 transition-colors duration-200">
-                            <i class="fa-solid fa-eye text-blue-500 w-4 h-4 flex-shrink-0"></i>
-                            <span class="text-sm font-medium mr-2 ml-2  "> View</span>
+                    <div class="flex items-center justify-center gap-2">
+                        <!-- View Icon -->
+                        <button 
+                            *ngIf="isView"
+                            class="p-button p-button-text p-button-sm text-gray-600 hover:text-blue-600 transition-colors duration-200"
+                            (click)="viewEvent.emit(rowData)"
+                            pTooltip="View Details"
+                            tooltipPosition="top">
+                            <i class="pi pi-eye"></i>
                         </button>
-                
-                        <button (click)="editEvent.emit(rowData)" *ngIf="rowData?.user_permissions?.can_edit" mat-menu-item 
-                            class="flex items-center justify-start gap-3 px-4 py-3 w-full hover:bg-green-50 text-green-600 hover:text-green-800 transition-colors duration-200">
-                            <i class="fa-solid fa-pen text-green-500 w-4 h-4 flex-shrink-0"></i>
-                            <span class="text-sm font-medium mr-2 ml-2">{{editButtonname}}</span>
+                        
+                        <!-- Edit Icon -->
+                        <button 
+                            *ngIf="isEditable || rowData?.user_permissions?.can_edit"
+                            class="p-button p-button-text p-button-sm text-gray-600 hover:text-green-600 transition-colors duration-200"
+                            (click)="editEvent.emit(rowData)"
+                            pTooltip="Edit"
+                            tooltipPosition="top">
+                            <i class="pi pi-pencil"></i>
                         </button>
-                        <button (click)="editEvent.emit(rowData)" *ngIf="isEditable" mat-menu-item 
-                            class="flex items-center justify-start gap-3 px-4 py-3 w-full hover:bg-green-50 text-green-600 hover:text-green-800 transition-colors duration-200">
-                            <i class="fa-solid fa-pen text-green-500 w-4 h-4 flex-shrink-0"></i>
-                            <span class="text-sm font-medium mr-2 ml-2">{{editButtonname}}</span>
-                        </button>
-                
-                        <button (click)="deleteEvent.emit(rowData)" *ngIf="isDeletable" mat-menu-item 
-                            class="flex items-center justify-start gap-3 px-4 py-3 w-full hover:bg-red-50 text-red-600 hover:text-red-800 transition-colors duration-200">
-                            <i class="fa-solid fa-trash text-red-500 w-4 h-4 flex-shrink-0"></i>
-                            <span class="text-sm font-medium mr-2 ml-2">Delete</span>
-                        </button>
-                        <button (click)="approveEvent.emit(rowData)" *ngIf="Approve" mat-menu-item 
-                            class="flex items-center justify-start gap-3 px-4 py-3 w-full hover:bg-red-50 text-red-600 hover:text-red-800 transition-colors duration-200">
-                            <i class="fa-solid fa-check text-green-500 w-4 h-4 flex-shrink-0"></i>
-                            <span class="text-sm font-medium mr-2 ml-2">{{Approve}}</span>
-                        </button>
-                        <button (click)="rejectEvent.emit(rowData)" *ngIf="Reject" mat-menu-item 
-                            class="flex items-center justify-start gap-3 px-4 py-3 w-full hover:bg-red-50 text-red-600 hover:text-red-800 transition-colors duration-200">
-                            <i class="fa-solid fa-xmark text-red-500 w-4 h-4 flex-shrink-0"></i>
-                            <span class="text-sm font-medium mr-2 ml-2">{{Reject}}</span>
+                        
+                        <!-- Delete Icon -->
+                        <button 
+                            *ngIf="isDeletable"
+                            class="p-button p-button-text p-button-sm text-gray-600 hover:text-red-600 transition-colors duration-200"
+                            (click)="deleteEvent.emit(rowData)"
+                            pTooltip="Delete"
+                            tooltipPosition="top">
+                            <i class="pi pi-trash"></i>
                         </button>
 
-                    </mat-menu>
+                        <!-- Approve Icon -->
+                        <button 
+                            *ngIf="Approve"
+                            class="p-button p-button-text p-button-sm text-gray-600 hover:text-green-600 transition-colors duration-200"
+                            (click)="approveEvent.emit(rowData)"
+                            pTooltip="{{Approve}}"
+                            tooltipPosition="top">
+                            <i class="pi pi-check"></i>
+                        </button>
+
+                        <!-- Reject Icon -->
+                        <button 
+                            *ngIf="Reject"
+                            class="p-button p-button-text p-button-sm text-gray-600 hover:text-red-600 transition-colors duration-200"
+                            (click)="rejectEvent.emit(rowData)"
+                            pTooltip="{{Reject}}"
+                            tooltipPosition="top">
+                            <i class="pi pi-times"></i>
+                        </button>
+                    </div>
                 </td>
                 <td class="px-4 py-3 text-center" *ngIf="isCheckBox">
                     <p-tableCheckbox [disabled]="isDisabled(rowData)" [value]="rowData"></p-tableCheckbox>

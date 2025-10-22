@@ -6,25 +6,34 @@
   [resizable]="true"
   [maximizable]="true"
   [baseZIndex]="10000"
-  [style]="{width: '80vw'}"
+  [style]="{width: '85vw', maxWidth: '1200px'}"
   (onHide)="closeDialog()"
 >
   <ng-template pTemplate="header">
     <div class="dialog-header-content">
-      <h2 class="dialog-title">{{ title }}</h2>
+      <h2 class="dialog-title">{{ title || 'Details View' }}</h2>
     </div>
   </ng-template>
 
   <!-- Content Area -->
-  <div class="p-6 bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
+  <div class="content-wrapper">
     <div class="elegant-section">
+      <!-- Data Grid -->
       <div class="elegant-info-grid">
-        <div class="elegant-info-item" *ngFor="let field of headers">
-          <div class="elegant-info-label">{{ field.label }}</div>
+        <div class="elegant-info-item" *ngFor="let field of headers; let i = index">
+          <div class="elegant-info-label">
+            {{ field.label }}
+          </div>
           <div class="elegant-info-value">
             <ng-container [ngSwitch]="field.type">
               <span *ngSwitchCase="'select'" class="value-text">
-                {{ viewDetails[field.key]?.code || viewDetails[field.key] }}
+                {{ viewDetails[field.key]?.code || viewDetails[field.key] || 'N/A' }}
+              </span>
+              <span *ngSwitchCase="'date'" class="value-text date-value">
+                {{ viewDetails[field.key] ? (viewDetails[field.key] | date:'medium') : 'N/A' }}
+              </span>
+              <span *ngSwitchCase="'number'" class="value-text number-value">
+                {{ viewDetails[field.key] || 'N/A' }}
               </span>
               <span *ngSwitchDefault class="value-text">
                 {{ viewDetails[field.key] || 'N/A' }}
@@ -33,17 +42,25 @@
           </div>
         </div>
       </div>
+
+      <!-- Empty State -->
+      <div class="empty-state" *ngIf="!headers?.length">
+        <div class="empty-icon">📋</div>
+        <h3 class="empty-title">No Data Available</h3>
+        <p class="empty-message">There are no fields to display at this time.</p>
+      </div>
     </div>
   </div>
 
   <!-- Footer -->
   <ng-template pTemplate="footer">
-    <div class="flex justify-end gap-3 pt-4">
+    <div class="footer-actions">
       <button 
         type="button" 
-        class="px-6 py-2 bg-blue-600 text-white rounded-sm hover:bg-blue-600 -700 transition-colors duration-200"
+        class="btn-close"
         (click)="closeDialog()">
-        Close
+        <span class="btn-icon">✕</span>
+        <span class="btn-text">Close</span>
       </button>
     </div>
   </ng-template>

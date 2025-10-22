@@ -59,8 +59,8 @@ html {
 } */
 
 ::ng-deep .fancy-table .p-datatable-tbody>tr:nth-child(even) {
-  background-color: #fef7f7 !important;
-  /* light red */
+  background-color: var(--bg-secondary) !important;
+  /* light theme color */
 }
 
 ::ng-deep .p-datatable-scrollable-wrapper {
@@ -370,7 +370,7 @@ td {
 
 /* Alternate Row Colors */
 .p-datatable-tbody tr:nth-child(even) {
-  background-color: #f9fafb;
+  background-color: var(--bg-secondary) !important;
 }
 
 /* Action Buttons */
@@ -553,8 +553,8 @@ textarea {
 border-radius: 8px;
 } */
 .p-datatable-scrollable>.p-datatable-table-container>.p-datatable-table>.p-datatable-thead,
-.p-datatable.p-datatable-striped .p-datatable-tbody>tr {
-  background: none !important;
+.p-datatable.p-datatable-striped .p-datatable-tbody>tr:nth-child(odd) {
+  background: white !important;
 }
 
 .export-btn {
@@ -1281,7 +1281,7 @@ p-dropdown {
 
 
 .p-dialog-header{
-  background: linear-gradient(135deg, #8b1a1a 0%, #8b1a1a 100%) !important;
+  background: linear-gradient(135deg, var(--primary-gradient-start) 0%, var(--primary-gradient-end) 100%) !important;
   color: white !important;
   /* border-radius: 0.5rem 0.5rem 0 0 !important; */
   margin: 0 !important;

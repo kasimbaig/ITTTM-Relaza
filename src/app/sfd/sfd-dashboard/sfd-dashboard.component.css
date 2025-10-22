@@ -389,8 +389,8 @@ app-dashboard-card {
   }
   
   :host ::ng-deep .p-dialog .p-dialog-header {
-    background-color: var(--card-bg); /* Match chart/kpi card header */
-    color: #3b2a47;
+    background: linear-gradient(135deg, var(--primary-gradient-start) 0%, var(--primary-gradient-end) 100%);
+    color: white;
     border-bottom: 1px solid var(--card-border);
     padding: 1rem 1.5rem;
     font-weight: 600;

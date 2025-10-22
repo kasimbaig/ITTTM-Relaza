@@ -871,7 +871,7 @@
   }
   
   .p-dialog-header {
-    background: #1e40af;
+    background: linear-gradient(135deg, var(--primary-gradient-start) 0%, var(--primary-gradient-end) 100%);
     color: white;
     border-radius: 0;
     padding: 20px 24px;

@@ -22,7 +22,7 @@
 }
 
 :host ::ng-deep .p-dialog .p-dialog-header {
-  background: #1e40af;
+  background: linear-gradient(135deg, var(--primary-gradient-start) 0%, var(--primary-gradient-end) 100%);
   color: #ffffff;
   padding: 1.5rem 2rem;
   border-bottom: 1px solid #e5e7eb;

@@ -7,11 +7,11 @@
   }
 
   .p-dialog-header {
-    background: #0066cc;
+    background: linear-gradient(135deg, var(--primary-gradient-start) 0%, var(--primary-gradient-end) 100%);
     color: white;
     border-radius: 12px 12px 0 0;
     padding: 1.5rem;
-    border-bottom: 2px solid #004499;
+    border-bottom: 2px solid var(--primary-gradient-end);
   }
 
   .p-dialog-title {

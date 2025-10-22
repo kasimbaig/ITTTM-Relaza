@@ -1,0 +1,178 @@
+.sidebar.modern-sidebar {
+  background: linear-gradient(135deg, var(--primary-gradient-start) 0%, var(--primary-gradient-end) 100%);
+  color: var(--text-white);
+  backdrop-filter: blur(12px);
+  width: 240px;
+  height: 100vh;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+  overflow-y: auto;
+  box-shadow: 4px 0 20px var(--shadow-dark);
+}
+
+.sidebar.modern-sidebar-collapsed {
+  width: 80px;
+}
+
+.modern-sidebar-header {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: linear-gradient(135deg, var(--secondary-gradient-start) 0%, var(--secondary-gradient-end) 100%);
+}
+
+.modern-icon {
+  font-size: 1.5rem;
+  color: var(--accent-light);
+  text-shadow: 0 2px 4px var(--shadow-dark);
+}
+
+.modern-cmms-text {
+  font-weight: bold;
+  font-size: 1.5rem;
+  color: var(--text-white);
+  text-shadow: 0 2px 4px var(--shadow-dark);
+}
+
+.modern-collapse-button {
+  background: none;
+  border: none;
+  color: var(--text-white);
+  font-size: 1.3rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0.5rem;
+  border-radius: 6px;
+}
+
+.modern-collapse-button:hover {
+  background: rgba(255, 255, 255, 0.1);
+  transform: scale(1.1);
+}
+
+.modern-menu-button,
+.modern-submenu-button {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  background: transparent;
+  border: none;
+  color: var(--text-white);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  transition: all 0.3s ease;
+  border-radius: 8px;
+  margin: 2px 8px;
+  width: calc(100% - 16px);
+}
+
+.modern-menu-button:hover,
+.modern-submenu-button:hover {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+  color: var(--text-white);
+  transform: translateX(5px);
+  box-shadow: 0 2px 8px var(--shadow-medium);
+}
+
+.modern-menu-button.active {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%);
+  color: var(--accent-light);
+  border-left: 4px solid var(--accent-light);
+  box-shadow: 0 4px 12px var(--shadow-medium);
+}
+
+.modern-menu-icon {
+  font-size: 1.2rem;
+  width: 20px;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.modern-menu-button:hover .modern-menu-icon,
+.modern-submenu-button:hover .modern-menu-icon {
+  transform: scale(1.1);
+  color: var(--accent-light);
+}
+
+.modern-ship-icon {
+  color: var(--accent-light);
+  transition: all 0.3s ease;
+}
+
+.modern-menu-button:hover .modern-ship-icon {
+  transform: scale(1.1);
+  filter: drop-shadow(0 2px 4px var(--shadow-dark));
+}
+
+.modern-white-color {
+  color: var(--text-white);
+}
+
+.modern-menu-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.modern-menu-button:hover .modern-menu-label,
+.modern-submenu-button:hover .modern-menu-label {
+  color: var(--accent-light);
+  font-weight: 600;
+}
+
+.modern-submenu-toggle {
+  margin-left: auto;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  transition: all 0.3s ease;
+}
+
+.modern-menu-button:hover .modern-submenu-toggle,
+.modern-submenu-button:hover .modern-submenu-toggle {
+  color: var(--accent-light);
+  transform: scale(1.1);
+}
+
+.modern-submenu-container,
+.modern-nested-submenu-container {
+  padding-left: 1.5rem;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
+  border-left: 2px solid rgba(255, 255, 255, 0.1);
+  margin: 4px 0;
+  border-radius: 0 8px 8px 0;
+}
+
+.modern-nested-item {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.03) 0%, transparent 100%);
+  border-left: 1px solid rgba(255, 255, 255, 0.05);
+  margin: 2px 0;
+  padding-left: 1rem;
+}
+
+.modern-nested-item:hover {
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.03) 100%);
+  border-left-color: var(--accent-light);
+}
+
+.sidebar::-webkit-scrollbar {
+  width: 8px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, var(--primary-gradient-start) 0%, var(--primary-gradient-end) 100%);
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, var(--secondary-gradient-start) 0%, var(--secondary-gradient-end) 100%);
+}

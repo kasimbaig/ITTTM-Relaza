@@ -1,0 +1,444 @@
+<p-dialog 
+  [(visible)]="open" 
+  [modal]="true" 
+  [closable]="true"
+  [draggable]="false"
+  [resizable]="true"
+  [maximizable]="true"
+  [baseZIndex]="10000"
+  [style]="{width: isSingleColumn ? '50vw' : '80vw'}"
+  (onHide)="closeSidebar()"
+>
+  <ng-template pTemplate="header">
+    <div class="dialog-header-content">
+      <h2 class="dialog-title">{{ fromTitle }}</h2>
+    </div>
+  </ng-template>
+
+  <!-- Form Content - Modern Design: Two vertical columns with enhanced styling -->
+  <div class="p-8 bg-gradient-to-br from-slate-50 to-blue-50 min-h-[500px]">
+    <form [formGroup]="form" class="space-y-8" (ngSubmit)="handleSubmit($event)">
+      
+      <!-- Two Column Layout with Enhanced Spacing -->
+      <div class="grid gap-8 mb-6" [ngClass]="isSingleColumn ? 'grid-cols-1' : 'lg:grid-cols-2 grid-cols-1'" >
+        
+        <!-- Left Column -->
+        <div class="space-y-6">
+          <div *ngFor="let field of getLeftColumnFields(); let i = index" class="form-field-group">
+            <ng-container *ngIf="!field.hide">
+            <!-- Enhanced Label -->
+            <label [for]="field.key" class="form-label">
+              {{ field.label }} 
+              <span *ngIf="field.required" class="required-indicator">*</span>
+            </label>
+
+            <!-- Enhanced Input Container -->
+            <div class="form-input-container">
+              
+              <!-- Enhanced Text/Number/Email inputs -->
+              <input
+                *ngIf="
+                  field.type !== 'checkbox' &&
+                  field.type !== 'select' &&
+                  field.type !== 'select-multiple' &&
+                  field.type !== 'file' &&
+                  field.type !== 'textarea' &&
+                  field.type !== 'text' &&
+                  field.type !== 'address' &&
+                  field.type !== 'date' &&
+                  field.type !== 'radio'
+                "
+                [id]="field.key"
+                [type]="field.type"
+                [formControlName]="field.key"
+                class="w-full px-4 py-2 border-2 border-amber-700 rounded-lg bg-white text-gray-700 focus:ring-2 focus:ring-amber-500 focus:border-amber-600 transition-all duration-200 hover:border-amber-600"
+                [class.border-red-500]="form.get(field.key)?.invalid && (form.get(field.key)?.dirty || form.get(field.key)?.touched)"
+                [placeholder]="field.placeholder"
+              />
+
+              <!-- Enhanced Date input -->
+              <input
+                *ngIf="field.type === 'date'"
+                [id]="field.key"
+                type="date"
+                [formControlName]="field.key"
+                class="w-full px-4 py-2 border-2 border-amber-700 rounded-lg bg-white text-gray-700 focus:ring-2 focus:ring-amber-500 focus:border-amber-600 transition-all duration-200 hover:border-amber-600"
+                [class.border-red-500]="form.get(field.key)?.invalid && (form.get(field.key)?.dirty || form.get(field.key)?.touched)"
+                [placeholder]="field.placeholder"
+              />
+
+              <!-- Enhanced Checkbox -->
+              <div *ngIf="field.type === 'checkbox'" class="flex items-center gap-3 py-2">
+                <input
+                  [id]="field.key"
+                  type="checkbox"
+                  (change)="handleCheckboxChange($event, field.key)"
+                  [formControlName]="field.key"
+                  class="w-5 h-5 accent-amber-600 cursor-pointer"
+                />
+                <label [for]="field.key" class="text-sm text-gray-700 cursor-pointer select-none">
+                  {{ field.placeholder || 'Check this option' }}
+                </label>
+              </div>
+
+              <!-- Enhanced Select dropdown -->
+              <select
+                *ngIf="field.type === 'select'"
+                [id]="field.key"
+                [formControlName]="field.key"
+                (change)="handleSelectChange($event, field.key)"
+                class="w-full px-4 py-2 border-2 border-amber-700 rounded-lg bg-white text-gray-700 focus:ring-2 focus:ring-amber-500 focus:border-amber-600 transition-all duration-200 hover:border-amber-600"
+                [class.border-red-500]="form.get(field.key)?.invalid && (form.get(field.key)?.dirty || form.get(field.key)?.touched)"
+              >
+                <option value="" disabled>Select an option</option>
+                <option
+                  *ngFor="let option of getOptionsForField(field.key)"
+                  [value]="option.value"
+                >
+                  {{ option.label }}
+                </option>
+              </select>
+
+              <!-- Enhanced File upload -->
+              <div
+                *ngIf="field.type === 'file'"
+                class="w-full p-6 border-2 border-dashed border-amber-700 rounded-xl bg-gradient-to-br from-amber-50 to-orange-50 cursor-pointer transition-all duration-300 hover:border-amber-600 hover:bg-gradient-to-br hover:from-amber-100 hover:to-orange-100 hover:shadow-lg"
+                (click)="triggerFileInputClick(fileInputRef)"
+                (dragover)="onDragOver($event)"
+                (dragleave)="onDragLeave($event)"
+                (drop)="onFileDrop($event, field.key)"
+                [class.dragging]="isDragging"
+              >
+                <input
+                  #fileInputRef
+                  [id]="field.key"
+                  type="file"
+                  (change)="handleFileInput($event, field.key)"
+                  class="hidden"
+                />
+                <div class="flex flex-col items-center gap-3 text-center">
+                  <div class="text-4xl text-amber-600 transition-all duration-300">
+                    <i class="pi pi-cloud-upload"></i>
+                  </div>
+                  <div class="flex flex-col gap-1">
+                    <p class="text-lg font-semibold text-gray-700">Drag & drop file here</p>
+                    <p class="text-sm text-gray-500">or click to browse</p>
+                  </div>
+                  <div *ngIf="form.get(field.key)?.value" class="flex items-center gap-2 text-sm font-semibold text-green-600 bg-green-50 px-3 py-2 rounded-lg border border-green-200">
+                    <i class="pi pi-check-circle"></i>
+                    {{ getFileName(form.get(field.key)?.value) }}
+                  </div>
+                  <div *ngIf="!form.get(field.key)?.value && isEditMode && mediaFiles.length === 0 && documentFiles.length === 0" class="text-sm text-gray-400 italic">
+                    No file selected
+                  </div>
+                </div>
+              </div>
+
+              <!-- Enhanced Textarea -->
+              <textarea
+                *ngIf="field.type === 'textarea' || field.type === 'address'"
+                [id]="field.key"
+                [formControlName]="field.key"
+                class="w-full px-4 py-2 border-2 border-amber-700 rounded-lg bg-white text-gray-700 focus:ring-2 focus:ring-amber-500 focus:border-amber-600 transition-all duration-200 hover:border-amber-600 resize-vertical min-h-[60px]"
+                [class.border-red-500]="form.get(field.key)?.invalid && (form.get(field.key)?.dirty || form.get(field.key)?.touched)"
+                [rows]="field.type === 'address' ? 3 : 2"
+                [placeholder]="field.placeholder"
+              ></textarea>
+
+              <!-- Enhanced Text -->
+              <input
+                *ngIf="field.type === 'text'"
+                [id]="field.key"
+                [formControlName]="field.key"
+                class="w-full px-4 py-2 border-2 border-amber-700 rounded-lg bg-white text-gray-700 focus:ring-2 focus:ring-amber-500 focus:border-amber-600 transition-all duration-200 hover:border-amber-600"
+                placeholder=" "
+              />
+
+              <!-- Enhanced Radio Buttons -->
+              <div *ngIf="field.type === 'radio'" class="flex flex-col gap-3 py-2">
+                <div *ngFor="let option of field.options" class="flex items-center gap-3">
+                  <input
+                    type="radio"
+                    [id]="field.key + '_' + option.value"
+                    [name]="field.key"
+                    [value]="option.value"
+                    [checked]="form.get(field.key)?.value === option.value"
+                    (change)="onRadioChange(field.key, option.value)"
+                    class="w-5 h-5 accent-amber-600 cursor-pointer"
+                  />
+                  <label [for]="field.key + '_' + option.value" class="text-sm text-gray-700 cursor-pointer select-none">
+                    {{ option.label }}
+                  </label>
+                </div>
+              </div>
+
+              <!-- Enhanced Error message -->
+              <div *ngIf="form.get(field.key)?.invalid && (form.get(field.key)?.dirty || form.get(field.key)?.touched)" 
+                   class="flex items-center gap-2 text-red-500 text-sm mt-1 p-2 bg-red-50 border border-red-200 rounded-md">
+                <i class="pi pi-exclamation-circle"></i>
+                <span *ngIf="form.get(field.key)?.errors?.['required']">{{ field.label }} is required.</span>
+              </div>
+            </div>
+          </ng-container>
+          </div>
+        </div>
+
+        <!-- Right Column -->
+        <div class="space-y-6">
+          <div *ngFor="let field of getRightColumnFields(); let i = index" class="form-field-group">
+            
+            <!-- Enhanced Label -->
+            <label [for]="field.key" class="form-label">
+              {{ field.label }} 
+              <span *ngIf="field.required" class="required-indicator">*</span>
+            </label>
+
+            <!-- Enhanced Input Container -->
+            <div class="form-input-container">
+              
+              <!-- Enhanced Text/Number/Email inputs -->
+              <input
+                *ngIf="
+                  field.type !== 'checkbox' &&
+                  field.type !== 'select' &&
+                  field.type !== 'select-multiple' &&
+                  field.type !== 'file' &&
+                  field.type !== 'textarea' &&
+                  field.type !== 'text' &&
+                  field.type !== 'address' &&
+                  field.type !== 'date' &&
+                  field.type !== 'radio'
+                "
+                [id]="field.key"
+                [type]="field.type"
+                [formControlName]="field.key"
+                class="w-full px-4 py-2 border-2 border-amber-700 rounded-lg bg-white text-gray-700 focus:ring-2 focus:ring-amber-500 focus:border-amber-600 transition-all duration-200 hover:border-amber-600"
+                [class.border-red-500]="form.get(field.key)?.invalid && (form.get(field.key)?.dirty || form.get(field.key)?.touched)"
+                [placeholder]="field.placeholder"
+              />
+
+              <!-- Enhanced Date input -->
+              <input
+                *ngIf="field.type === 'date'"
+                [id]="field.key"
+                type="date"
+                [formControlName]="field.key"
+                class="w-full px-4 py-2 border-2 border-amber-700 rounded-lg bg-white text-gray-700 focus:ring-2 focus:ring-amber-500 focus:border-amber-600 transition-all duration-200 hover:border-amber-600"
+                [class.border-red-500]="form.get(field.key)?.invalid && (form.get(field.key)?.dirty || form.get(field.key)?.touched)"
+                [placeholder]="field.placeholder"
+              />
+
+              <!-- Enhanced Checkbox -->
+              <div *ngIf="field.type === 'checkbox'" class="flex items-center gap-3 py-2">
+                <input
+                  [id]="field.key"
+                  type="checkbox"
+                  (change)="handleCheckboxChange($event, field.key)"
+                  [formControlName]="field.key"
+                  class="w-5 h-5 accent-amber-600 cursor-pointer"
+                />
+                <label [for]="field.key" class="text-sm text-gray-700 cursor-pointer select-none">
+                  {{ field.placeholder || 'Check this option' }}
+                </label>
+              </div>
+
+              <!-- Enhanced Select dropdown -->
+              <select
+                *ngIf="field.type === 'select'"
+                [id]="field.key"
+                [formControlName]="field.key"
+                class="w-full px-4 py-2 border-2 border-amber-700 rounded-lg bg-white text-gray-700 focus:ring-2 focus:ring-amber-500 focus:border-amber-600 transition-all duration-200 hover:border-amber-600"
+                [class.border-red-500]="form.get(field.key)?.invalid && (form.get(field.key)?.dirty || form.get(field.key)?.touched)"
+              >
+                <option value="" disabled>Select an option</option>
+                <option
+                  *ngFor="let option of getOptionsForField(field.key)"
+                  [value]="option.value"
+                >
+                  {{ option.label }}
+                </option>
+              </select>
+              <!-- Enhanced Multi-select -->
+              <p-multiSelect
+                *ngIf="field.type === 'select-multiple'"
+                [id]="field.key"
+                [formControlName]="field.key"
+                [options]="getOptionsForField(field.key)"
+                optionLabel="label"
+                optionValue="value"
+                class="w-full border-2 border-amber-700 rounded-lg"
+                [class.border-red-500]="form.get(field.key)?.invalid && (form.get(field.key)?.dirty || form.get(field.key)?.touched)"
+                defaultLabel="Select options"
+              ></p-multiSelect>
+
+              <!-- Enhanced File upload -->
+              <div
+                *ngIf="field.type === 'file'"
+                class="w-full p-6 border-2 border-dashed border-amber-700 rounded-xl bg-gradient-to-br from-amber-50 to-orange-50 cursor-pointer transition-all duration-300 hover:border-amber-600 hover:bg-gradient-to-br hover:from-amber-100 hover:to-orange-100 hover:shadow-lg"
+                (click)="triggerFileInputClick(fileInputRef)"
+                (dragover)="onDragOver($event)"
+                (dragleave)="onDragLeave($event)"
+                (drop)="onFileDrop($event, field.key)"
+                [class.dragging]="isDragging"
+              >
+                <input
+                  #fileInputRef
+                  [id]="field.key"
+                  type="file"
+                  (change)="handleFileInput($event, field.key)"
+                  class="hidden"
+                />
+                <div class="flex flex-col items-center gap-3 text-center">
+                  <div class="text-4xl text-amber-600 transition-all duration-300">
+                    <i class="pi pi-cloud-upload"></i>
+                  </div>
+                  <div class="flex flex-col gap-1">
+                    <p class="text-lg font-semibold text-gray-700">Drag & drop file here</p>
+                    <p class="text-sm text-gray-500">or click to browse</p>
+                  </div>
+                  <div *ngIf="form.get(field.key)?.value" class="flex items-center gap-2 text-sm font-semibold text-green-600 bg-green-50 px-3 py-2 rounded-lg border border-green-200">
+                    <i class="pi pi-check-circle"></i>
+                    {{ getFileName(form.get(field.key)?.value) }}
+                  </div>
+                  <div *ngIf="!form.get(field.key)?.value && isEditMode && mediaFiles.length === 0 && documentFiles.length === 0" class="text-sm text-gray-400 italic">
+                    No file selected
+                  </div>
+                </div>
+              </div>
+
+              <!-- Enhanced Textarea -->
+              <textarea
+                *ngIf="field.type === 'textarea' || field.type === 'address'"
+                [id]="field.key"
+                [formControlName]="field.key"
+                class="w-full px-4 py-2 border-2 border-amber-700 rounded-lg bg-white text-gray-700 focus:ring-2 focus:ring-amber-500 focus:border-amber-600 transition-all duration-200 hover:border-amber-600 resize-vertical min-h-[60px]"
+                [class.border-red-500]="form.get(field.key)?.invalid && (form.get(field.key)?.dirty || form.get(field.key)?.touched)"
+                [rows]="field.type === 'address' ? 3 : 2"
+                [placeholder]="field.placeholder"
+              ></textarea>
+
+              <!-- Enhanced Text -->
+              <input
+                *ngIf="field.type === 'text'"
+                [id]="field.key"
+                [formControlName]="field.key"
+                class="w-full px-4 py-2 border-2 border-amber-700 rounded-lg bg-white text-gray-700 focus:ring-2 focus:ring-amber-500 focus:border-amber-600 transition-all duration-200 hover:border-amber-600"
+                placeholder=" "
+              />
+
+              <!-- Enhanced Radio Buttons -->
+              <div *ngIf="field.type === 'radio'" class="flex flex-col gap-3 py-2">
+                <div *ngFor="let option of field.options" class="flex items-center gap-3">
+                  <input
+                    type="radio"
+                    [id]="field.key + '_' + option.value"
+                    [name]="field.key"
+                    [value]="option.value"
+                    [checked]="form.get(field.key)?.value === option.value"
+                    (change)="onRadioChange(field.key, option.value)"
+                    class="w-5 h-5 accent-amber-600 cursor-pointer"
+                  />
+                  <label [for]="field.key + '_' + option.value" class="text-sm text-gray-700 cursor-pointer select-none">
+                    {{ option.label }}
+                  </label>
+                </div>
+              </div>
+
+              <!-- Enhanced Error message -->
+              <div *ngIf="form.get(field.key)?.invalid && (form.get(field.key)?.dirty || form.get(field.key)?.touched)" 
+                   class="flex items-center gap-2 text-red-500 text-sm mt-1 p-2 bg-red-50 border border-red-200 rounded-md">
+                <i class="pi pi-exclamation-circle"></i>
+                <span *ngIf="form.get(field.key)?.errors?.['required']">{{ field.label }} is required.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Enhanced Submit button section -->
+      <div class="form-actions">
+        <button 
+          type="button" 
+          class="btn-cancel"
+          (click)="closeSidebar()">
+          <i class="pi pi-times"></i>
+          Cancel
+        </button>
+        <button 
+          type="submit" 
+          class="btn-submit"
+          [disabled]="!form.valid">
+          <i class="pi pi-check"></i>
+          {{ submitLabel || 'Save' }}
+        </button>
+      </div>
+    </form>
+
+    <!-- Enhanced Attached Files Section -->
+    <div
+      *ngIf="mediaFiles.length > 0 || documentFiles.length > 0"
+      class="attached-files-section"
+    >
+      <h3 class="attached-files-title">
+        <i class="pi pi-paperclip"></i>
+        Attached Files
+      </h3>
+      
+      <!-- Media Files -->
+      <div *ngIf="mediaFiles.length > 0" class="mb-4">
+        <h4 class="file-category-title">Media Files</h4>
+        <div class="space-y-2">
+          <div
+            *ngFor="let media of mediaFiles; let i = index"
+            class="file-item"
+          >
+            <a
+              [href]="media.file"
+              download
+              target="_blank"
+              class="file-link"
+            >
+              <i class="pi pi-file"></i>
+              <span>{{ getFileName(media.file) }}</span>
+            </a>
+            <button
+              (click)="deleteFile(media.id!)"
+              class="delete-btn"
+              aria-label="Delete file"
+            >
+              <i class="pi pi-trash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Document Files -->
+      <div *ngIf="documentFiles.length > 0" class="mb-4" [class.mt-6]="mediaFiles.length > 0">
+        <h4 class="file-category-title">Document Files</h4>
+        <div class="space-y-2">
+          <div
+            *ngFor="let document of documentFiles; let i = index"
+            class="file-item"
+          >
+            <a
+              [href]="document.file"
+              download
+              target="_blank"
+              class="file-link"
+            >
+              <i class="pi pi-file-pdf"></i>
+              <span>{{ getFileName(document.file) }}</span>
+            </a>
+            <button
+              (click)="deleteDocumentFile(document.id!)"
+              class="delete-btn"
+              aria-label="Delete document file"
+            >
+              <i class="pi pi-trash"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</p-dialog>

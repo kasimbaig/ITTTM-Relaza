@@ -14,6 +14,8 @@ import { GtgLoadTrialReportComponent } from '../forms/transaction/etma/gtg-load-
 import { StatusTabsComponent } from '../../shared/components/status-tabs/status-tabs.component';
 import { EtmaDashboardComponent } from '../etma-dashboard/etma-dashboard.component';
 
+import { NgxPrintModule } from 'ngx-print';
+import { QRCodeComponent } from 'angularx-qrcode';
 interface GtgLoadTrialReport {
   id?: number;
   Presented_by: string;
@@ -63,7 +65,10 @@ interface GtgLoadTrialReport {
     DeleteConfirmationModalComponent,
     GtgLoadTrialReportComponent,
     StatusTabsComponent,
-    EtmaDashboardComponent
+
+    EtmaDashboardComponent,
+    NgxPrintModule,
+    QRCodeComponent
   ],
   templateUrl: './etma-main-component.component.html',
   styleUrls: ['./etma-main-component.component.css'],
@@ -88,7 +93,8 @@ export class EtmaMainComponentComponent implements OnInit {
   isViewFormOpen: boolean = false;
   showDeleteDialog: boolean = false;
   selectedReport: GtgLoadTrialReport | null = null;
-  
+  selectedReportVersion: any | null = null;
+  openFullPopup=false;
   // Table configuration
   apiUrl: string = 'etma/loadtrial/';
   totalCount: number = 0;
@@ -145,9 +151,27 @@ export class EtmaMainComponentComponent implements OnInit {
 
   navigateToEtma(subPath: string): void {
     this.activeSubPath = subPath;
-    // For now, we only have one sub-path, so no navigation needed
+    if(subPath === 'report'){
+      this.reportApicall();
+    }
+   
   }
-
+  reportVersions: any[] = [];
+  colReportVersions=[
+    { field: 'version', header: 'Version', filterType: 'text' },
+    { field: 'created_on', header: 'Created At', filterType: 'date' },
+  ];
+  reportApicall(){
+    this.apiService.get(`etma/version/?sub_module_id=5`).subscribe({
+      next: (response: any) => {
+        this.reportVersions = response;
+      },
+      error: (error: any) => {
+        console.error('Error fetching report versions:', error);
+        this.toastService.showError('Failed to fetch report versions');
+      }
+    });
+  }
   // Table event handlers
   onDataLoaded(data: any[]): void {
     // Data loaded from paginated table
@@ -281,5 +305,72 @@ export class EtmaMainComponentComponent implements OnInit {
   // Navigation methods
   goBack(): void {
     this.router.navigate(['/dashboard']);
+  }
+
+  viewReportVersion(version: any): void {
+    this.openFullPopup = true;
+    this.selectedReportVersion = version;
+    setTimeout(() => {
+      this.renderSavedHtml();
+    }, 100);
+  }
+
+  private renderSavedHtml(): void {
+    const container = document.querySelector('.report-version-container');
+    if (container && this.selectedReportVersion?.data) {
+      container.innerHTML = '';
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = this.selectedReportVersion.data;
+      while (tempDiv.firstChild) {
+        container.appendChild(tempDiv.firstChild);
+      }
+      
+      // Handle different form elements
+      container.querySelectorAll('input, textarea, select').forEach((element: any) => {
+        if (element.tagName === 'SELECT') {
+          // For select elements, restore the selected value
+          const savedValue = element.getAttribute('value');
+          console.log('Rendering select element:', element.name || element.id, 'Saved value:', savedValue);
+          if (savedValue) {
+            element.value = savedValue;
+            // Also ensure the selected option is marked as selected
+            element.querySelectorAll('option').forEach((option: any) => {
+              option.removeAttribute('selected');
+              if (option.value === savedValue) {
+                option.setAttribute('selected', 'selected');
+                console.log('Option selected:', option.textContent);
+              }
+            });
+          }
+          element.disabled = true;
+          element.style.cursor = 'not-allowed';
+        } else if (element.type === 'checkbox' || element.type === 'radio') {
+          // For checkboxes and radio buttons, restore checked state
+          const isChecked = element.getAttribute('checked') === 'true' || element.hasAttribute('checked');
+          element.checked = isChecked;
+          element.disabled = true;
+          element.style.cursor = 'not-allowed';
+        } else {
+          // For text inputs and textareas, restore value and make read-only
+          const savedValue = element.getAttribute('value');
+          if (savedValue) {
+            element.value = savedValue;
+          }
+          element.readOnly = true;
+          element.style.cursor = 'not-allowed';
+        }
+      });
+    }
+  }
+
+  closeReportVersionPopup(): void {
+    this.openFullPopup = false;
+    this.selectedReportVersion = null;
+    
+    // Clear the container content
+    const container = document.querySelector('.report-version-container');
+    if (container) {
+      container.innerHTML = '';
+    }
   }
 }

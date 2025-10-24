@@ -1,5 +1,12 @@
 <div class="max-w-full mx-auto">
-  <div class="command-header mb-4">
+  <!-- Tab Navigation -->
+  <app-tab-navigation
+    [tabs]="tabs"
+    [activeTab]="activeTab"
+    (tabChange)="onTabChange($event)">
+  </app-tab-navigation>
+
+  <div class="command-header">
     <div class="command-title-block">
       <i class="pi pi-file-alt"></i>
       <div>
@@ -19,13 +26,6 @@
       </div>
     </div>
   </div>
-
-  <!-- Tab Navigation -->
-  <app-tab-navigation
-    [tabs]="tabs"
-    [activeTab]="activeTab"
-    (tabChange)="onTabChange($event)">
-  </app-tab-navigation>
 
   <app-paginated-table
     [columns]="cols"

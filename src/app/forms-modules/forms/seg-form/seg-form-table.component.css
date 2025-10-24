@@ -25,7 +25,7 @@
 
 .command-title-block i {
   font-size: 1.5rem;
-  color: #282828;
+  color: #3b82f6;
 }
 
 .command-title-block h2 {
@@ -63,15 +63,12 @@
 }
 
 .btn.primary {
-  background: linear-gradient(135deg, #282828 0%, #5c5050 100%);
+  background: #2563eb;
   color: white;
-  box-shadow: 0 4px 12px rgba(40, 40, 40, 0.15);
 }
 
 .btn.primary:hover {
-  background: linear-gradient(135deg, #1a1a1a 0%, #4a4040 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(40, 40, 40, 0.25);
+  background: #1d4ed8;
 }
 
 .btn.outlined {

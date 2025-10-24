@@ -12,6 +12,9 @@ import { DeleteConfirmationModalComponent } from '../../shared/components/delete
 import { SegFormComponent } from '../forms/seg-form/seg-form.component';
 import { SegFormTableComponent } from '../forms/seg-form/seg-form-table.component';
 import { SegDashboardComponent } from '../seg-dashboard/seg-dashboard.component';
+import { PaginatedTableComponent } from '../../shared/components/paginated-table/paginated-table.component';
+import { NgxPrintModule } from 'ngx-print';
+import { QRCodeComponent } from 'angularx-qrcode';
 
 interface SegFormReport {
   id?: number;
@@ -152,7 +155,10 @@ interface SegFormReport {
     DeleteConfirmationModalComponent,
     SegFormComponent,
     SegFormTableComponent,
-    SegDashboardComponent
+    SegDashboardComponent,
+    PaginatedTableComponent,
+    NgxPrintModule,
+    QRCodeComponent
   ],
   templateUrl: './seg-main-component.component.html',
   styleUrls: ['./seg-main-component.component.css'],
@@ -240,6 +246,9 @@ export class SegMainComponentComponent implements OnInit {
 
   navigateToSeg(subPath: string): void {
     this.activeSubPath = subPath;
+    if(subPath === 'Report'){
+      this.reportApicall();
+    }
     // For now, we only have one sub-path, so no navigation needed
   }
 
@@ -448,5 +457,89 @@ export class SegMainComponentComponent implements OnInit {
   // Navigation methods
   goBack(): void {
     this.router.navigate(['/dashboard']);
+  }
+  reportVersions: any[] = [];
+  colReportVersions=[
+    { field: 'version', header: 'Version', filterType: 'text' },
+    { field: 'created_on', header: 'Created At', filterType: 'date' },
+  ];
+  reportApicall(){
+    this.apiService.get(`etma/version/?sub_module_id=6`).subscribe({
+      next: (response: any) => {
+        this.reportVersions = response;
+      },
+      error: (error: any) => {
+        console.error('Error fetching report versions:', error);
+        this.toastService.showError('Failed to fetch report versions');
+      }
+    });
+  }
+
+  viewReportVersion(version: any): void {
+    this.openFullPopup = true;
+    this.selectedReportVersion = version;
+    setTimeout(() => {
+      this.renderSavedHtml();
+    }, 100);
+  }
+
+  private renderSavedHtml(): void {
+    const container = document.querySelector('.report-version-container');
+    if (container && this.selectedReportVersion?.data) {
+      container.innerHTML = '';
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = this.selectedReportVersion.data;
+      while (tempDiv.firstChild) {
+        container.appendChild(tempDiv.firstChild);
+      }
+      
+      // Handle different form elements
+      container.querySelectorAll('input, textarea, select').forEach((element: any) => {
+        if (element.tagName === 'SELECT') {
+          // For select elements, restore the selected value
+          const savedValue = element.getAttribute('value');
+          console.log('Rendering select element:', element.name || element.id, 'Saved value:', savedValue);
+          if (savedValue) {
+            element.value = savedValue;
+            // Also ensure the selected option is marked as selected
+            element.querySelectorAll('option').forEach((option: any) => {
+              option.removeAttribute('selected');
+              if (option.value === savedValue) {
+                option.setAttribute('selected', 'selected');
+                console.log('Option selected:', option.textContent);
+              }
+            });
+          }
+          element.disabled = true;
+          element.style.cursor = 'not-allowed';
+        } else if (element.type === 'checkbox' || element.type === 'radio') {
+          // For checkboxes and radio buttons, restore checked state
+          const isChecked = element.getAttribute('checked') === 'true' || element.hasAttribute('checked');
+          element.checked = isChecked;
+          element.disabled = true;
+          element.style.cursor = 'not-allowed';
+        } else {
+          // For text inputs and textareas, restore value and make read-only
+          const savedValue = element.getAttribute('value');
+          if (savedValue) {
+            element.value = savedValue;
+          }
+          element.readOnly = true;
+          element.style.cursor = 'not-allowed';
+        }
+      });
+    }
+  }
+  selectedReportVersion: any | null = null;
+  openFullPopup=false;
+  closeReportVersionPopup(): void {
+    this.openFullPopup = false;
+    this.selectedReportVersion = null;
+    
+    // Clear the container content
+    const container = document.querySelector('.report-version-container');
+    if (container) {
+      container.innerHTML = '';
+    }
   }
 }

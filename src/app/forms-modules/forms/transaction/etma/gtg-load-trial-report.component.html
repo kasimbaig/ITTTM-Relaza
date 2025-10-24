@@ -1,7 +1,10 @@
+
+
 <p-dialog 
   [(visible)]="isFormOpen" 
   [modal]="true" 
   [closable]="true"
+  [maximizable]="true"
   [draggable]="false"
   [resizable]="true"
   [maximizable]="true"
@@ -2510,16 +2513,20 @@
           </div>
         </div>
       </div>
-      <div >
-          <h3 class="text-lg font-semibold text-gray-800 mb-4 mt-8">Signature of the Inspector</h3>
-          <div class="flex justify-between">
-            <div class="w-1/2">
-              <input type="text" class="w-full px-2 py-1 border-black focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter name">
-            </div>
-            <div class="w-1/2">
-              <input type="text" class="w-full px-2 py-1 border-black focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter name">
+      <div class="p-2" *ngIf="apiService.getData()">
+        <div class="p-4 w-full bg-gray-50 flex justify-end items-center gap-2">
+          <qrcode [qrdata]="apiService.getData().internalUsers[0].name + ' - ' + apiService.getData().internalUsers[0].rankName + ' - ' + apiService.getData().internalUsers[0].unit + ' - ' + (apiService.getData().internalUsers[0].timestamp | date: 'd MMM y, h:mm:ss a')" [width]="100" [errorCorrectionLevel]="'M'"></qrcode>
+          <div class="text-left">
+            <span class="text-sm font-medium text-gray-600">{{ apiService.getData().internalUsers[0].rankName }}</span>-<span class=" text-sm font-medium text-gray-800">{{ apiService.getData().internalUsers[0].name }}</span>
+            <br>
+            <span class="text-xs text-gray-500 mt-2">
+              {{ apiService.getData().internalUsers[0].unit }}
+            </span> <br>
+            <div class="text-xs text-gray-400 mt-1">
+              {{ apiService.getData().internalUsers[0].timestamp | date: 'd MMM y, h:mm:ss a' }}
             </div>
           </div>
+        </div>
       </div>
     </div>
       <!-- Action Buttons -->
@@ -2534,6 +2541,19 @@
                 (click)="onCancel()">
                 Close
               </button>
+              <button  
+              printSectionId="printContainer"	[openNewTab]="true"
+              ngxPrint  styleSheetFile="assets/print.css"
+              class="px-4 py-2 bg-red-600 text-white  hover:bg-red-700 transition-colors duration-200 flex items-center gap-2"
+              >
+              <i class="pi pi-file-pdf"></i>
+              PDF
+            </button>
+              <button (click)="showRouteConfigModal=true"     class="px-4 py-2 bg-red-600 text-white  hover:bg-red-700 transition-colors duration-200 flex items-center gap-2"
+              >
+              <i class="pi pi-file-pdf"></i>
+              Save Version
+            </button>
             </ng-container>
             
             <!-- Edit/Add Mode - All Buttons -->
@@ -2570,6 +2590,11 @@
               <i class="pi pi-file-pdf"></i>
               PDF
             </button>
+              <button (click)="showRouteConfigModal=true"     class="px-4 py-2 bg-blue-600 text-white  hover:bg-blue-700 transition-colors duration-200 flex items-center gap-2"
+              >
+              <i class="pi pi-save"></i>
+              Save Version
+            </button>
             </ng-container>
           </div>
         </div>
@@ -2597,17 +2622,36 @@
 
     <!-- Route Config Modal Placeholder -->
     <div *ngIf="showRouteConfigModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-        <div class="bg-white p-6 rounded-lg max-w-4xl w-full mx-4">
-            <h3 class="text-lg font-semibold mb-4">Route Configuration</h3>
-            <p class="text-gray-600 mb-4">Full route configuration modal would be implemented here.</p>
+        <div class="bg-white rounded-lg shadow-xl w-[450px] mx-4 mb-4">
+          <div class="flex items-center justify-between bg-[#04308f] text-white p-2 rounded-t-lg">
+            <h3 class="text-lg font-semibold mb-4">Save Report Version</h3>
             <button 
                 (click)="showRouteConfigModal = false"
                 class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-                Close
+                <i class="pi pi-times"></i>
             </button>
+          </div>
+          <div class="m-4">
+            <div class="flex items-center justify-between p-4">
+              <input 
+                type="text" 
+                class="flex-grow px-3 py-2 border border-gray-400 rounded mr-2 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                placeholder="Enter Version Name Here"
+                [(ngModel)]="versionName"
+                name="versionName" />
+             
+            </div>
+            <button 
+            type="button"
+            class="px-6 py-2 mb-2 bg-blue-500 text-white font-medium float-end hover:bg-blue-600 transition-colors duration-200"
+            (click)="onSaveVersion()"
+            ><i class="pi pi-save"></i> Save Version</button>
+          </div>
+        
         </div>
     </div>
 </p-dialog>
 
 <!-- Toast Component -->
 <app-toast></app-toast>
+

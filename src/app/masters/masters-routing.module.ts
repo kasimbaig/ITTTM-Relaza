@@ -5,6 +5,7 @@ import { ShipComponent } from './ship/ship.component';
 import { EstablishmentComponent } from './establishment-master/establishment-master.component';
 import {  ManufacturerMasterComponent } from './manufacturer-master/manufacturer-master.component';
 import { GraphQLComponent } from '../srar/SARARTRANSACTION/graph-ql/graph-ql.component';
+import { FormBuildingComponent } from './form-building/form-building.component';
 
 const routes: Routes = [
   {
@@ -110,6 +111,10 @@ const routes: Routes = [
       {
         path: 'GRAPHQL',
         loadChildren: () => import('../srar/SARARTRANSACTION/graph-ql/graph-ql.component').then(m => m.GraphQLComponent)
+      },
+      {
+        path: 'form-building',
+        component: FormBuildingComponent
       },
       {
         path: 'station',

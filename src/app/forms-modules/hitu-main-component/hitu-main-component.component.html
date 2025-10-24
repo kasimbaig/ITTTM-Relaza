@@ -27,7 +27,7 @@
 
             <!-- HITU Forms Dropdown Menu -->
             <div *ngIf="showHituDropdown"
-                class="absolute z-20 bg-white rounded-xl shadow-lg py-2 mt-2 w-64 origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none hitu-dropdown-menu h-96 overflow-y-auto overflow-x-hidden">
+                class="absolute z-20 bg-white rounded-xl shadow-lg py-2 mt-2 w-64 origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none hitu-dropdown-menu h-auto overflow-y-auto overflow-x-hidden">
                 <button *ngFor="let item of hituMenuItems"
                     class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center transition-colors duration-150 ease-in-out"
                     (click)="navigateToHituSubItem(item.path)">
@@ -127,7 +127,7 @@
             <div  *ngIf="openFullPopup"  class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-70">
                 <div class="w-screen h-screen bg-white flex flex-col rounded-none shadow-none overflow-hidden">
                   <!-- Header -->
-                  <div class="flex items-center justify-between bg-[#494141] text-white px-3 py-6">
+                  <div class="flex items-center justify-between bg-blue-800 text-white px-3 py-6">
                     <h3 class="text-3xl font-bold">{{activeTab.label}} Report Versions</h3>
                     <div class="flex items-center gap-2">
                       <button  

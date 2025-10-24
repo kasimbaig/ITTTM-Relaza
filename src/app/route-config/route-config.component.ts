@@ -385,6 +385,8 @@ export class RouteConfigComponent implements OnInit, OnDestroy, OnChanges {
         console.log('Timeline API response:', response);
         if (response && response.data && response.data.length > 0) {
           this.timelineData = this.transformApiData(response.data);
+          this.apiService.setData(response.data[0]);
+          console.log('🚀 GTG FORM SIGNATURE:', this.apiService.getData(),response.data,response.data[0] );
           this.loading = false;
           
           // Animate nodes after data is loaded

@@ -156,10 +156,10 @@
     [style]="{ width: '600px' }"
     header="{{ isEditMode ? 'Edit Field' : 'Add New Field' }}">
     
-    <div class="grid grid-cols-1 gap-4" *ngIf="selectedField">
+    <div class="grid grid-cols-1 gap-4 px-4" *ngIf="selectedField">
       <!-- Field Name -->
       <div class="field">
-        <label for="fieldName" class="block text-sm font-medium text-gray-700 mb-2">
+        <label for="fieldName" class="block text-sm font-medium text-gray-700 mb-2 mt-4">
           Field Name <span class="text-red-500">*</span>
         </label>
         <input 
@@ -167,7 +167,7 @@
           pInputText 
           [(ngModel)]="selectedField.name"
           placeholder="Enter field name"
-          class="w-full">
+          class="w-full px-3 py-2">
       </div>
 
       <!-- Field Type -->
@@ -208,7 +208,7 @@
           pInputText 
           [(ngModel)]="selectedField.defaultValue"
           placeholder="Enter default value"
-          class="w-full">
+          class="w-full px-3 py-2">
       </div>
 
       <!-- Placeholder -->
@@ -221,7 +221,7 @@
           pInputText 
           [(ngModel)]="selectedField.placeholder"
           placeholder="Enter placeholder text"
-          class="w-full">
+          class="w-full px-3 py-2">
       </div>
 
       <!-- Options for Select Field -->
@@ -268,7 +268,7 @@
 <div *ngIf="openBox" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-70">
     <div class="w-screen h-screen bg-white flex flex-col rounded-none shadow-none overflow-hidden">
       <!-- Header -->
-      <div class="flex items-center justify-between bg-blue-800 text-white px-3 py-6">
+      <div class="flex items-center justify-between bg-[#282828] text-white px-3 py-6">
         <h3 class="text-3xl font-bold">Form Preview</h3>
         <div class="flex items-center gap-2">
        
@@ -385,11 +385,11 @@
         </div>
 
         <div *ngIf="view.ship" class="bg-white shadow-sm border border-gray-200">
-            <div class="px-4 py-3 border-b border-gray-200 bg-[#1e40af] heading">
+            <div class="px-4 py-3 border-b border-gray-200 bg-[#282828] heading">
               <h2 class="text-lg font-semibold text-white">1. Ship</h2>
             </div>
             
-            <div class="p-4 bg-amber-50">
+            <div class="p-6 bg-amber-50">
               <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 <div class="space-y-1">
                   <label class="block text-base font-medium text-gray-700">
@@ -419,11 +419,11 @@
         </div>
 
         <div *ngIf="view.trialDetails" class="bg-white shadow-sm border border-gray-200">
-            <div class="px-4 py-3 border-b border-gray-200 bg-[#1e40af] heading">
+            <div class="px-4 py-3 border-b border-gray-200 bg-[#282828] heading">
               <h2 class="text-lg font-semibold text-white">1. Trial Details</h2>
             </div>
             
-            <div class="p-4 bg-amber-50">
+            <div class="p-6 bg-amber-50">
               <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
                 
                 <!-- Presented By -->
@@ -514,11 +514,11 @@
     
           <!-- Section 2: Test Equipment Used -->
           <div *ngIf="view.testEquipmentUsed" class="bg-white shadow-sm border border-gray-200">
-            <div class="px-4 py-3 border-b border-gray-200 bg-[#1e40af] heading">
+            <div class="px-4 py-3 border-b border-gray-200 bg-[#282828] heading">
               <h2 class="text-lg font-semibold text-white">2. Test Equipment Used</h2>
             </div>
             
-            <div class="p-4 bg-amber-50">
+            <div class="p-6 bg-amber-50">
               <select 
                 formControlName="equipmentId"
                 class="w-full px-3 py-2 border border-black shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
@@ -530,11 +530,11 @@
     
           <!-- Section 3: Equipment Details -->
           <div *ngIf="view.equipmentDetails"class="bg-white shadow-sm border border-gray-200">
-            <div class="px-4 py-3 border-b border-gray-200 bg-[#1e40af] heading">
+            <div class="px-4 py-3 border-b border-gray-200 bg-[#282828] heading">
               <h2 class="text-lg font-semibold text-white">3. Equipment Details</h2>
             </div>
             
-            <div class="p-4 space-y-6">
+            <div class="p-6 space-y-6">
               
               <!-- Engine Subsection -->
               <div class="border border-gray-300 bg-amber-50 rounded-lg p-4">
@@ -765,7 +765,7 @@
     
           <!-- Section 4: Insulation Resistance -->
           <div *ngIf="view.insulationResistance" class="bg-white shadow-sm border border-gray-200">
-            <div class="px-6 py-4 border-b border-gray-200 bg-[#1e40af] heading ">
+            <div class="px-6 py-4 border-b border-gray-200 bg-[#282828] heading ">
               <h2 class="text-lg font-semibold text-white">4. Insulation Resistance (iaw NES 511(Issue 2) and NES 502 issue 4)</h2>
             </div>
             
@@ -817,7 +817,7 @@
     
           <!-- Section 5: Protection Checks -->
           <div *ngIf="view.protectionChecks" class="bg-white shadow-sm border border-gray-200">
-            <div class="px-6 py-4 border-b border-gray-200 bg-[#1e40af] heading -600">
+            <div class="px-6 py-4 border-b border-gray-200 bg-[#282828] heading -600">
               <h2 class="text-lg font-semibold text-white">5. Protection Checks</h2>
             </div>
             
@@ -838,7 +838,7 @@
                   <tbody>
                     <!-- Breaker Protection -->
                     <tr class="bg-gray-50">
-                      <td colspan="7" class="border border-gray-400 px-4 py-2 font-semibold text-white bg-[#1e40af] ">Breaker Protection</td>
+                      <td colspan="7" class="border border-gray-400 px-4 py-2 font-semibold text-whitebg-[#282828] ">Breaker Protection</td>
                     </tr>
                     <tr>
                       <td class="border border-gray-400 px-2 py-2 text-center">(a)</td>
@@ -918,7 +918,7 @@
                     
                     <!-- Generator/Switchboard Protection -->
                     <tr class="bg-gray-50">
-                      <td colspan="7" class="border border-gray-400 px-4 py-2 font-semibold text-white bg-[#1e40af] ">Generator/Switchboard Protection</td>
+                      <td colspan="7" class="border border-gray-400 px-4 py-2 font-semibold text-whitebg-[#282828] ">Generator/Switchboard Protection</td>
                     </tr>
                     <tr>
                       <td class="border border-gray-400 px-2 py-2 text-center">(a)</td>
@@ -1024,7 +1024,7 @@
     
           <!-- Section 6: Instrumentation -->
           <div *ngIf="view.instrumentation" class="bg-white shadow-sm border border-gray-200">
-            <div class="px-6 py-4 border-b border-gray-200 bg-[#1e40af] heading -600">
+            <div class="px-6 py-4 border-b border-gray-200 bg-[#282828] heading -600">
               <h2 class="text-lg font-semibold text-white">6. Instrumentation</h2>
             </div>
             
@@ -1190,7 +1190,7 @@
     
           <!-- Section 7: Miscellaneous Checks -->
           <div *ngIf="view.miscellaneousChecks" class="bg-white shadow-sm border border-gray-200">
-            <div class="px-6 py-4 border-b border-gray-200 bg-[#1e40af] heading -600">
+            <div class="px-6 py-4 border-b border-gray-200 bg-[#282828] heading -600">
               <h2 class="text-lg font-semibold text-white">7. Miscellaneous Checks</h2>
             </div>
             
@@ -1420,7 +1420,7 @@
     
             <!-- Section 8: Speed Control Test -->
             <div *ngIf="view.speedControlTest" class="bg-white shadow-sm border border-gray-200">
-            <div class="px-6 py-4 border-b border-gray-200 bg-[#1e40af] heading -600">
+            <div class="px-6 py-4 border-b border-gray-200 bg-[#282828] heading -600">
               <h2 class="text-lg font-semibold text-white">8. Speed Control Test</h2>
             </div>
             
@@ -2135,7 +2135,7 @@
     
           <!-- Section 9: Voltage Control Test -->
           <div *ngIf="view.voltageControlTest" class="bg-white shadow-sm border border-gray-200">
-            <div class="px-6 py-4 border-b border-gray-200 bg-[#1e40af] heading -600">
+            <div class="px-6 py-4 border-b border-gray-200 bg-[#282828] heading -600">
               <h2 class="text-lg font-semibold text-white">9. Voltage Control Test</h2>
             </div>
             

@@ -6,7 +6,7 @@
 }
 
 .custom-navy-table .p-datatable-thead > tr > th {
-  background-color: var(--table-header-bg, #1e40af) !important;
+  background-color: var(--table-header-bg, #282828) !important;
   color: var(--table-header-text, #ffffff);
   text-transform: uppercase;
   font-size: 0.9rem;
@@ -14,7 +14,7 @@
   padding: 0.8rem 1rem;
 }
 th{
-  background-color: var(--table-header-bg, #1e40af) !important;
+  background-color: var(--table-header-bg, #282828) !important;
   color: var(--table-header-text, #ffffff) !important;
 }
 .dark-mode .custom-navy-table .p-datatable-thead > tr > th {
@@ -23,7 +23,7 @@ th{
 }
 
 .custom-navy-table .p-datatable-tbody > tr > td {
-  color: var(--table-body-text, #1e40af) !important;
+  color: var(--table-body-text, #282828) !important;
   background-color: var(--table-bg, #fffaf5);
   border-bottom: 1px solid var(--table-border, #d2a788) !important;
   transition: background 0.3s, transform 0.3s;
@@ -49,9 +49,9 @@ th{
 /* Add custom variables if needed specific to table */
 /*
 :root {
-  --table-header-bg: #1e40af;
+  --table-header-bg: #282828;
   --table-header-text: #ffffff;
-  --table-body-text: #1e40af;
+  --table-body-text: #282828;
   --table-bg: #fffaf5;
   --table-border: #d2a788;
 }

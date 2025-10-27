@@ -198,7 +198,7 @@ export class FormBuildingComponent implements OnInit {
           .submit-btn { background: #007bff; color: white; padding: 12px 30px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; }
           .submit-btn:hover { background: #0056b3; }
           .section { margin-bottom: 20px; border: 1px solid #ddd; border-radius: 8px; }
-          .section-header { background: #1e40af; color: white; padding: 12px 16px; font-weight: 600; }
+          .section-header { background: #282828; color: white; padding: 12px 16px; font-weight: 600; }
           .section-content { padding: 16px; }
         </style>
       </head>

@@ -1,0 +1,156 @@
+<div class="">
+  <div class="command-header">
+    <div class="command-title-block">
+      <i class="fa-solid fa-chart-pie"></i>
+      <div>
+        <h2>Defect Overview</h2>
+        <p>Comprehensive defect analysis and reporting dashboard</p>
+      </div>
+    </div>
+    <div class="command-actions">
+      <p-dropdown [options]="organizationalFilterOptions" [(ngModel)]="selectedOrganizationalFilter"
+        (onChange)="onOrganizationalFilterChange($event)" placeholder="Select Organization" optionLabel="label" [filter]="true" [filterBy]="'label'"
+        optionValue="value" styleClass="filter-dropdown" [appendTo]="'body'"></p-dropdown>
+
+      <p-dropdown [options]="commandOptions" [(ngModel)]="selectedCommand" (onChange)="onCommandChange($event)"
+        placeholder="Select Command" optionLabel="label" optionValue="value" [showClear]="false" [filter]="true" [filterBy]="'label'"
+        styleClass="filter-dropdown" [appendTo]="'body'"></p-dropdown>
+
+      <p-dropdown [options]="shipOptions" [(ngModel)]="selectedShip" (onChange)="onShipChange($event)"
+        placeholder="Select Ship" optionLabel="label" optionValue="value" [showClear]="false" [filter]="true" [filterBy]="'label'"
+        styleClass="filter-dropdown" [appendTo]="'body'"></p-dropdown>
+    </div>
+  </div>
+
+  <div class="kpi-cards-grid w-full max-w-full my-4">
+    <app-dashboard-card *ngFor="let metric of kpiMetrics" [title]="metric.title" [value]="metric.value"
+      [description]="metric.description" [iconClass]="metric.iconClass" [type]="metric.type" [color]="metric.color"
+      (cardClick)="drillDown($event, metric.type)"></app-dashboard-card>
+  </div>
+
+  <!-- SRAR KPI Cards Section -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-6 mb-8 sm:mb-10 w-full max-w-full">
+    <!-- Total Ships Card -->
+    <div class="group bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-4 sm:p-6 shadow-lg border border-blue-200/30 animate-fade-in hover:shadow-2xl hover:scale-105 hover:-translate-y-2 transition-all duration-500 cursor-pointer" style="animation-delay: 0.1s;">
+      <div class="flex items-center justify-between">
+        <div class="flex-1">
+          <p class="text-blue-600 text-sm font-medium mb-2">Total Ships</p>
+          <p class="text-blue-800 text-2xl sm:text-3xl font-bold mb-1 group-hover:text-blue-900 transition-colors duration-300">{{ getTotalShips() }}</p>
+          <p class="text-blue-500 text-xs">Active Fleet</p>
+        </div>
+        <div class="w-12 h-12 bg-gradient-to-br from-blue-200 to-blue-300 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">
+          <svg class="w-6 h-6 text-blue-700 group-hover:text-blue-800" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+      </div>
+      <!-- Hover effect bar -->
+      <div class="mt-4 h-1 bg-gradient-to-r from-blue-600 to-blue-700 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+    </div>
+
+    <!-- Total RH at Sea Card -->
+    <div class="group bg-gradient-to-br from-cyan-50 to-cyan-100 rounded-2xl p-4 sm:p-6 shadow-lg border border-cyan-200/30 animate-fade-in hover:shadow-2xl hover:scale-105 hover:-translate-y-2 transition-all duration-500 cursor-pointer" style="animation-delay: 0.3s;">
+      <div class="flex items-center justify-between">
+        <div class="flex-1">
+          <p class="text-cyan-600 text-sm font-medium mb-2">Total RH at Sea</p>
+          <p class="text-cyan-800 text-2xl sm:text-3xl font-bold mb-1 group-hover:text-cyan-900 transition-colors duration-300">{{ getTotalRHAtSea() }}</p>
+          <p class="text-cyan-500 text-xs">Hours</p>
+        </div>
+        <div class="w-12 h-12 bg-gradient-to-br from-cyan-200 to-cyan-300 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">
+          <svg class="w-6 h-6 text-cyan-700 group-hover:text-cyan-800" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10 10-4.5 10-10S17.5 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+          </svg>
+        </div>
+      </div>
+      <div class="mt-4 h-1 bg-gradient-to-r from-cyan-600 to-cyan-700 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+    </div>
+
+    <!-- Avg RH at Sea Card -->
+    <div class="group bg-gradient-to-br from-teal-50 to-teal-100 rounded-2xl p-4 sm:p-6 shadow-lg border border-teal-200/30 animate-fade-in hover:shadow-2xl hover:scale-105 hover:-translate-y-2 transition-all duration-500 cursor-pointer" style="animation-delay: 0.4s;">
+      <div class="flex items-center justify-between">
+        <div class="flex-1">
+          <p class="text-teal-600 text-sm font-medium mb-2">Avg RH at Sea</p>
+          <p class="text-teal-800 text-2xl sm:text-3xl font-bold mb-1 group-hover:text-teal-900 transition-colors duration-300">{{ getAvgRHAtSea() }}</p>
+          <p class="text-teal-500 text-xs">Hours/Day</p>
+        </div>
+        <div class="w-12 h-12 bg-gradient-to-br from-teal-200 to-teal-300 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">
+          <svg class="w-6 h-6 text-teal-700 group-hover:text-teal-800" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+        </div>
+      </div>
+      <div class="mt-4 h-1 bg-gradient-to-r from-teal-600 to-teal-700 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+    </div>
+
+    <!-- Max RH Card -->
+    <div class="group bg-gradient-to-br from-orange-50 to-orange-100 rounded-2xl p-4 sm:p-6 shadow-lg border border-orange-200/30 animate-fade-in hover:shadow-2xl hover:scale-105 hover:-translate-y-2 transition-all duration-500 cursor-pointer" style="animation-delay: 0.5s;">
+      <div class="flex items-center justify-between">
+        <div class="flex-1">
+          <p class="text-orange-600 text-sm font-medium mb-2">Max RH</p>
+          <p class="text-orange-800 text-2xl sm:text-3xl font-bold mb-1 group-hover:text-orange-900 transition-colors duration-300">{{ getMaxRunningHours() }}</p>
+          <p class="text-orange-500 text-xs">Peak Performance</p>
+        </div>
+        <div class="w-12 h-12 bg-gradient-to-br from-orange-200 to-orange-300 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">
+          <svg class="w-6 h-6 text-orange-700 group-hover:text-orange-800" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+          </svg>
+        </div>
+      </div>
+      <div class="mt-4 h-1 bg-gradient-to-r from-orange-600 to-orange-700 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+    </div>
+
+    <!-- Operational Ships Card -->
+    <div class="group bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-4 sm:p-6 shadow-lg border border-purple-200/30 animate-fade-in hover:shadow-2xl hover:scale-105 hover:-translate-y-2 transition-all duration-500 cursor-pointer" style="animation-delay: 0.6s;">
+      <div class="flex items-center justify-between">
+        <div class="flex-1">
+          <p class="text-purple-600 text-sm font-medium mb-2">Operational</p>
+          <p class="text-purple-800 text-2xl sm:text-3xl font-bold mb-1 group-hover:text-purple-900 transition-colors duration-300">{{ getOperationalCount() }}</p>
+          <p class="text-purple-500 text-xs">Ships</p>
+        </div>
+        <div class="w-12 h-12 bg-gradient-to-br from-purple-200 to-purple-300 rounded-2xl flex items-center justify-center group-hover:scale-110 group-hover:rotate-12 transition-all duration-500">
+          <svg class="w-6 h-6 text-purple-700 group-hover:text-purple-800" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+          </svg>
+        </div>
+      </div>
+      <div class="mt-4 h-1 bg-gradient-to-r from-purple-600 to-purple-700 rounded-full transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left"></div>
+    </div>
+  </div>
+
+  <app-drt-chart></app-drt-chart>
+  
+
+</div>
+
+<p-dialog [(visible)]="displayDrilldownDialog" [header]="drilldownDialogTitle" [modal]="true"
+  [style]="{ width: '70vw', maxWidth: '900px' }" [baseZIndex]="10000" (onHide)="onHideDrilldownDialog()">
+  <ng-template pTemplate="content">
+    <p-table [value]="drilldownTableData" [columns]="drilldownTableCols" [paginator]="true" [rows]="10"
+      [rowHover]="true" styleClass="p-datatable-sm p-datatable-gridlines">
+      <ng-template pTemplate="header" let-columns>
+        <tr>
+          <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+            {{ col.header }}
+            <p-sortIcon *ngIf="col.field" [field]="col.field"></p-sortIcon>
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr>
+          <td *ngFor="let col of columns">
+            {{ rowData[col.field] }}
+          </td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptyMessage">
+        <tr>
+          <td [attr.colspan]="drilldownTableCols.length" class="text-center">No records found.</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </ng-template>
+  <ng-template pTemplate="footer">
+    <p-button label="Close" icon="pi pi-times" (click)="onHideDrilldownDialog()"
+      styleClass="p-button-secondary"></p-button>
+  </ng-template>
+</p-dialog>

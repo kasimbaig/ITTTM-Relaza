@@ -15,9 +15,8 @@ import { SliderModule } from 'primeng/slider'; // Import SliderModule for the da
 import { Chart as ChartJS, TimeScale, LinearScale, PointElement, LineElement, Tooltip, Legend } from 'chart.js';
 import zoomPlugin from 'chartjs-plugin-zoom';
 import 'chartjs-adapter-date-fns';
-import { SystemWiseDefectActivityChartComponent } from "../../system-wise-defect-activity-chart/system-wise-defect-activity-chart.component"; // Import the date adapter for time scales
 import { DashboardCardComponent } from '../../../shared/components/dashboard-card/dashboard-card.component';
-import { DrtChartComponent } from '../../drt-chart/drt-chart.component';
+import { DrtChartComponent } from '../../../dart/drt-chart/drt-chart.component';
 
 // Register the plugin and necessary Chart.js components globally.
 ChartJS.register(zoomPlugin, TimeScale, LinearScale, PointElement, LineElement, Tooltip, Legend);
@@ -69,7 +68,7 @@ type DartDataTypeMap = {
 };
 
 @Component({
-  selector: 'app-dart-dashboard',
+  selector: 'app-seg-dart-dashboard',
   standalone: true,
   imports: [
     CommonModule,
@@ -83,13 +82,12 @@ type DartDataTypeMap = {
     FormsModule,
     CalendarModule, // Added CalendarModule
     SliderModule,
-    SystemWiseDefectActivityChartComponent,
     DrtChartComponent
 ],
-  templateUrl: './dart-dashboard.component.html',
-  styleUrls: ['./dart-dashboard.component.scss'],
+  templateUrl: './seg-dart-dashboard.component.html',
+  styleUrls: ['./seg-dart-dashboard.component.scss'],
 })
-export class DartDashboardComponent implements OnInit {
+export class SegDartDashboardComponent implements OnInit {
 
   // --- Filter Properties (Similar to Maintop, but adapted for DART) ---
   organizationalFilterOptions: { label: string, value: string }[] = [
@@ -104,36 +102,36 @@ export class DartDashboardComponent implements OnInit {
   shipOptions: { label: string, value: string }[] = [];
   selectedShip: string | null = null;
 
-  // --- KPI Card Data for DART ---
+  // --- KPI Card Data for SEG DART ---
   kpiMetrics = [
     {
-      title: 'Total Open Defects',
-      value: 0,
-      description: 'Defects currently active, under verification, or approved.',
+      title: 'Total SEG Open Defects',
+      value: 95,
+      description: 'SEG defects currently active, under verification, or approved.',
       iconClass: 'pi pi-exclamation-triangle',
       type: 'TOTAL_OPEN_DEFECTS',
       color: '#ef4444' // Red for critical attention
     },
     {
-      title: 'Critical Defects',
-      value: 0,
-      description: 'High-priority defects requiring immediate attention.',
+      title: 'SEG Critical Defects',
+      value: 18,
+      description: 'High-priority SEG defects requiring immediate attention.',
       iconClass: 'pi pi-bolt',
       type: 'CRITICAL_DEFECTS',
       color: '#dc2626' // Darker red for critical
     },
     {
       title: 'Avg. Resolution Time (Days)',
-      value: '0 days',
-      description: 'Average time taken to resolve defects.',
+      value: '8.3 days',
+      description: 'Average time taken to resolve SEG defects.',
       iconClass: 'pi pi-hourglass',
       type: 'AVG_RESOLUTION_TIME',
       color: '#f59e0b' // Amber for time
     },
     {
-      title: 'Defects Awaiting Verification',
-      value: 0,
-      description: 'Defects logged but not yet verified or approved.',
+      title: 'SEG Defects Awaiting Verification',
+      value: 32,
+      description: 'SEG defects logged but not yet verified or approved.',
       iconClass: 'pi pi-hourglass',
       type: 'DEFECTS_AWAITING_VERIFICATION',
       color: '#3b82f6' // Blue for pending
@@ -352,7 +350,8 @@ export class DartDashboardComponent implements OnInit {
   }
 
   applyFilter(): void {
-    this.initializeKpiData();
+    // For SEG, keep static KPI values - don't calculate them dynamically
+    // this.initializeKpiData();
     this.initializeChartData();
   }
 
@@ -938,26 +937,24 @@ export class DartDashboardComponent implements OnInit {
   }
 
   // --- SRAR KPI Methods ---
+  // Static values for SEG dashboard
   getTotalShips(): number {
-    return this.srarShipData.length;
+    return 18;
   }
 
   getTotalRHAtSea(): string {
-    const total = this.srarShipData.reduce((sum, ship) => sum + ship.totalRHAtSea, 0);
-    return total.toFixed(0);
+    return '21600';
   }
 
   getAvgRHAtSea(): string {
-    const totalAvg = this.srarShipData.reduce((sum, ship) => sum + ship.avgRHAtSea, 0);
-    return (totalAvg / this.srarShipData.length).toFixed(1);
+    return '22.8';
   }
 
   getMaxRunningHours(): string {
-    const maxRh = Math.max(...this.srarShipData.map(ship => ship.maxRHAtSea));
-    return maxRh.toFixed(1);
+    return '36.5';
   }
 
   getOperationalCount(): number {
-    return this.srarShipData.filter(ship => ship.operational).length;
+    return 12;
   }
 }

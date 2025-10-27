@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Chart, ChartConfiguration, ChartType } from 'chart.js';
 import { registerables } from 'chart.js';
-import { DartDashboardComponent } from '../../../dart/dart-dashboard/dart-dashboard/dart-dashboard.component';
+import { SegDartDashboardComponent } from '../../seg-dashboard/seg-dart-dashboard/seg-dart-dashboard.component';
 
 Chart.register(...registerables);
 
@@ -14,7 +14,7 @@ Chart.register(...registerables);
   imports: [
     CommonModule,
     FormsModule,
-    DartDashboardComponent
+    SegDartDashboardComponent
   ],
   templateUrl: './sarar-dashboard.component.html',
   styleUrls: ['./sarar-dashboard.component.css']

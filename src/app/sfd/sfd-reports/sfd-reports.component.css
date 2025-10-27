@@ -18,8 +18,8 @@
 }
 
 .filter-card {
-    background: #1e40af; /* This is your dark purple background for the filter bar */
-    border: 1px solid #1e40af;
+    background: #282828; /* This is your dark purple background for the filter bar */
+    border: 1px solid #282828;
     border-radius: 0.75rem;
     padding: 1.25rem;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
@@ -33,7 +33,7 @@
 /* Table Header Styles - Essential */
 .custom-navy-table .p-datatable-thead > tr > th,
 th { /* Combine these as they apply to table headers */
-    background-color: #1e40af !important;
+    background-color: #282828 !important;
     color: #ffffff;
     text-transform: uppercase;
     font-size: 0.9rem;
@@ -75,8 +75,8 @@ th { /* Combine these as they apply to table headers */
 
 .add-btn {
     background-color: #f7fafc; /* Light background to stand out on purple, or make it primary purple */
-    color: #1e40af; /* Dark purple text */
-    border: 1px solid #1e40af; /* Dark purple border */
+    color: #282828; /* Dark purple text */
+    border: 1px solid #282828; /* Dark purple border */
 }
 /* Export button - making it look like an 'outlined' button from your other component */
 .export-btn {
@@ -92,7 +92,7 @@ th { /* Combine these as they apply to table headers */
 /* Reset button */
 .btn.reset-btn {
     background-color: #f7fafc; /* Light background */
-    color: #1e40af; /* Dark purple text */
+    color: #282828; /* Dark purple text */
     font-weight: 500;
     display: flex;
     align-items: center;

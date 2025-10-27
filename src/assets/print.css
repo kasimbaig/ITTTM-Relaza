@@ -6,6 +6,31 @@
     display: none !important;
   }
 
+  /* Hide file upload icons and controls when printing */
+  input[type="file"] {
+    display: none !important;
+  }
+  
+  label[for*="file"] svg,
+  .border-dashed svg {
+    display: none !important;
+  }
+  
+  .border-dashed.border-2.border-gray-300 {
+    display: none !important;
+  }
+  
+  /* Hide specific file upload containers */
+  .text-4xl,
+  .pi-cloud-upload {
+    display: none !important;
+  }
+  
+  .text-4xl.pi.pi-cloud-upload,
+  i.pi.pi-cloud-upload {
+    display: none !important;
+  }
+
   /* Ensure proper page layout */
   body {
     margin: 0;

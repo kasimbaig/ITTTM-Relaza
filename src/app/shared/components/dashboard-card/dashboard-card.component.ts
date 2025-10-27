@@ -14,7 +14,7 @@ export class DashboardCardComponent {
       @Input() description: any = '';
       @Input() iconClass: string = 'pi pi-chart-line';
       @Input() type: string = '';
-      @Input() color: string = '#1e40af'; // Added color input for border
+      @Input() color: string = '#282828'; // Added color input for border
 
       @Output() cardClick = new EventEmitter<string>();
 

@@ -1298,7 +1298,7 @@ p-dropdown {
   height: auto;
   display: block;
   overflow-x: scroll;
-  scrollbar-color: #1e40af #dee2e6 !important;
+  scrollbar-color: #282828 #dee2e6 !important;
   background-color: white;
   margin: auto
 }
@@ -1658,6 +1658,32 @@ button[mat-button] {
     width: 100vw !important;
     margin: 0 !important;
     border-radius: 0 !important;
+  }
+}
+
+/* Hide file upload icons and controls when printing PDFs */
+@media print {
+  input[type="file"] {
+    display: none !important;
+  }
+  
+  label[for*="file"] svg,
+  .border-dashed svg {
+    display: none !important;
+  }
+  
+  .border-dashed.border-2.border-gray-300 {
+    display: none !important;
+  }
+  
+  .text-4xl,
+  .pi-cloud-upload,
+  i.pi.pi-cloud-upload {
+    display: none !important;
+  }
+  
+  .text-4xl.pi.pi-cloud-upload {
+    display: none !important;
   }
 }
 

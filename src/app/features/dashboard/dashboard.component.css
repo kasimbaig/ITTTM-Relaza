@@ -664,7 +664,7 @@ textarea[pInputTextarea] {
   border-top: 1px solid #ddd;
 }
 th{
-  background-color:  #1e40af !important;
+  background-color:  #282828 !important;
 }
 
 /* Attachments Section Styling */
@@ -707,7 +707,7 @@ th{
 }
 
 .btn-choose-file:hover {
-  background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
+  background: linear-gradient(135deg, #2563eb 0%, #282828 100%);
   transform: translateY(-1px);
   box-shadow: 0 4px 8px rgba(59, 130, 246, 0.3);
 }

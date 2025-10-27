@@ -53,7 +53,7 @@ export class MaintopDashboardComponent implements OnInit {
       description: 'Tasks currently in progress or assigned.',
       iconClass: 'pi pi-list',
       type: 'ACTIVE_TASKS',
-      color: '#1e40af'
+      color: '#282828'
     },
     {
       title: 'Overdue Tasks',
@@ -324,7 +324,7 @@ export class MaintopDashboardComponent implements OnInit {
 
   private initializeChartData(): void {
     const appColors = {
-      primary: '#1e40af',
+      primary: '#282828',
       secondary: '#6d28d9',
       success: '#22c55e',
       warning: '#facc15',

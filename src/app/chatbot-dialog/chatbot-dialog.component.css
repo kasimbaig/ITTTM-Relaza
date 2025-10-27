@@ -65,7 +65,7 @@ background: linear-gradient(to bottom, #2b1d3a, #43365d);    color: #fff;
 
 .avatar i {
     font-size: 22px; /* Slightly larger icon */
-        color: #1e40af !important;
+        color: #282828 !important;
 }
 
 .header-title {
@@ -127,7 +127,7 @@ background: linear-gradient(to bottom, #2b1d3a, #43365d);    color: #fff;
 }
 
 .user-msg {
-    background-color: #1e40af !important;
+    background-color: #282828 !important;
     color: #fff;
     align-self: flex-end;
     border-top-right-radius: 5px; /* Softer radius */
@@ -149,12 +149,12 @@ background: linear-gradient(to bottom, #2b1d3a, #43365d);    color: #fff;
 }
 
 .user-icon {
-        color: #1e40af !important;
+        color: #282828 !important;
     order: 2;
 }
 
 .bot-icon {
-        color: #1e40af !important; /* Use primary color for bot icon */
+        color: #282828 !important; /* Use primary color for bot icon */
     order: -1;
 }
 
@@ -179,12 +179,12 @@ background: linear-gradient(to bottom, #2b1d3a, #43365d);    color: #fff;
 }
 
 .chat-footer input:focus {
-    border-color: #1e40af !important;
+    border-color: #282828 !important;
     box-shadow: 0 0 0 2px rgba(76, 136, 255, 0.2);
 }
 
 .chat-footer button {
-    background-color: #1e40af !important;
+    background-color: #282828 !important;
     color: white;
     border-radius: 50%;
     width: 40px; /* Fixed size for a cleaner look */
@@ -213,7 +213,7 @@ background: linear-gradient(to bottom, #2b1d3a, #43365d);    color: #fff;
 .suggestion-btn {
     background-color: #eef6ff;
     border: 1px solid #4c88ff;
-        color: #1e40af !important;
+        color: #282828 !important;
     padding: 8px 12px;
     border-radius: 20px; /* More rounded pill shape */
     cursor: pointer;
@@ -223,6 +223,6 @@ background: linear-gradient(to bottom, #2b1d3a, #43365d);    color: #fff;
 }
 
 .suggestion-btn:hover {
-    background-color: #1e40af !important;
+    background-color: #282828 !important;
     color: #fff;
 }

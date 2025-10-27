@@ -516,3 +516,28 @@
     padding: 0.625rem 0.875rem;
   }
 }
+
+/* Hide file upload icons and controls when printing */
+@media print {
+  input[type="file"] {
+    display: none !important;
+  }
+  
+  .text-4xl,
+  i.pi.pi-cloud-upload,
+  .pi-cloud-upload {
+    display: none !important;
+  }
+  
+  label[for*="file"] svg {
+    display: none !important;
+  }
+  
+  .border-dashed svg {
+    display: none !important;
+  }
+  
+  .border-dashed.border-2.border-gray-300 {
+    display: none !important;
+  }
+}

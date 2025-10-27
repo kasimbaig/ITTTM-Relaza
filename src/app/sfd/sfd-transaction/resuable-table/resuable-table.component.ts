@@ -166,11 +166,11 @@ ResuableTableComponent {
       1: { 'background-color': '#dcfce7', 'color': '#166534' },
       0: { 'background-color': '#fee2e2', 'color': '#991b1b' },
       'pending': { 'background-color': '#fef3c7', 'color': '#92400e' },
-      'completed': { 'background-color': '#dbeafe', 'color': '#1e40af' },
+      'completed': { 'background-color': '#dbeafe', 'color': '#282828' },
       'approved': { 'background-color': '#dcfce7', 'color': '#166534' },
       'rejected': { 'background-color': '#fee2e2', 'color': '#991b1b' },
       'draft': { 'background-color': '#f3f4f6', 'color': '#374151' },
-      'submitted': { 'background-color': '#dbeafe', 'color': '#1e40af' },
+      'submitted': { 'background-color': '#dbeafe', 'color': '#282828' },
       'forwarded': { 'background-color': '#f3e8ff', 'color': '#7c3aed' },
       'received': { 'background-color': '#e0e7ff', 'color': '#4338ca' }
     };

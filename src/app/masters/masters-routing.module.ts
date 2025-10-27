@@ -110,7 +110,7 @@ const routes: Routes = [
       },
       {
         path: 'GRAPHQL',
-        loadChildren: () => import('../srar/SARARTRANSACTION/graph-ql/graph-ql.component').then(m => m.GraphQLComponent)
+        component: GraphQLComponent
       },
       {
         path: 'form-building',

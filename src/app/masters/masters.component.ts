@@ -100,24 +100,27 @@ export class MastersComponent implements OnInit, AfterViewInit {
       this.equipmentDropdown();
     }else if(subPath === 'unit-group'){
       this.unitDropdown();
-      
     }else if(subPath === 'GRAPHQL'){
-      this.showEquipmentDropdownDropdown = false;
-      this.activeSubPath = subPath;
-      this.router.navigate(['/srar/sarar-transaction/sarar/transaction-graphql']);
-    }else if(subPath === 'form-builder'){
       this.showShipDropdownDropdown = false;
       this.showUnitDropdownDropdown = false;
       this.showEquipmentDropdownDropdown = false;
       this.activeSubPath = subPath;
-      this.router.navigate(['form-building'], { relativeTo: this.activatedRoute });
+      this.router.navigate([subPath], { relativeTo: this.activatedRoute });
+    }else if(subPath === 'form-building'){
+      this.showShipDropdownDropdown = false;
+      this.showUnitDropdownDropdown = false;
+      this.showEquipmentDropdownDropdown = false;
+      this.activeSubPath = subPath;
+      this.router.navigate([subPath], { relativeTo: this.activatedRoute });
     }
     else {
+      // Close all dropdowns
       this.showShipDropdownDropdown = false;
       this.showUnitDropdownDropdown = false;
       this.showEquipmentDropdownDropdown = false;
+      // Set active subpath and navigate
       this.activeSubPath = subPath;
-     
+      this.router.navigate([subPath], { relativeTo: this.activatedRoute });
     }
   }
 

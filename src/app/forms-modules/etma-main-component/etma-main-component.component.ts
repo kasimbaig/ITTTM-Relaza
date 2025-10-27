@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -16,8 +16,8 @@ import { EtmaDashboardComponent } from '../etma-dashboard/etma-dashboard.compone
 import { WordDownloadService } from '../../shared/services/word-download.service';
 
 import { NgxPrintModule } from 'ngx-print';
-import { QRCodeComponent } from 'angularx-qrcode';
 import { DynmicFromComponent } from '../forms/dynmic-from/dynmic-from.component';
+
 interface GtgLoadTrialReport {
   id?: number;
   Presented_by: string;
@@ -53,6 +53,12 @@ interface GtgLoadTrialReport {
   updated_at?: string;
 }
 
+interface DropdownItem {
+  label: string;
+  icon: string;
+  path: string;
+}
+
 @Component({
   selector: 'app-etma-main-component',
   standalone: true,
@@ -70,7 +76,6 @@ interface GtgLoadTrialReport {
 
     EtmaDashboardComponent,
     NgxPrintModule,
-    QRCodeComponent,
     DynmicFromComponent
   ],
   providers: [WordDownloadService],
@@ -82,6 +87,18 @@ export class EtmaMainComponentComponent implements OnInit, OnDestroy {
   
   activeSubPath: string = 'dashboard';
   searchText: string = '';
+  
+  // Master dropdown
+  showMasterDropdown: boolean = false;
+  
+  masterDropdownItems: DropdownItem[] = [
+    { label: 'Ship Master', icon: 'fa-solid fa-database', path: '/masters/ship-group/ship-master' },
+    { label: 'Ship Category', icon: 'fa-solid fa-tags', path: '/masters/ship-group/ship-category' },
+    { label: 'Departments', icon: 'fa-solid fa-building', path: '/masters/ship-group/departments' },
+    { label: 'Section', icon: 'fa-solid fa-sitemap', path: '/masters/ship-group/section' },
+    { label: 'Class', icon: 'fa-solid fa-graduation-cap', path: '/masters/ship-group/class' },
+    { label: 'Equipment', icon: 'fa-solid fa-cogs', path: '/masters/equip-master' }
+  ];
   
   // Tab management
   activeTab: string = 'draft';
@@ -161,10 +178,20 @@ export class EtmaMainComponentComponent implements OnInit, OnDestroy {
 
   navigateToEtma(subPath: string): void {
     this.activeSubPath = subPath;
+    this.showMasterDropdown = false;
     if(subPath === 'report'){
       this.reportApicall();
     }
    
+  }
+
+  masterDropdown(): void {
+    this.showMasterDropdown = !this.showMasterDropdown;
+  }
+
+  navigateToMaster(item: DropdownItem): void {
+    this.showMasterDropdown = false;
+    this.router.navigate([item.path]);
   }
   reportVersions: any[] = [];
   colReportVersions=[
@@ -497,5 +524,13 @@ export class EtmaMainComponentComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.clearProgressIntervals();
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: Event) {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.master-dropdown-container')) {
+      this.showMasterDropdown = false;
+    }
   }
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy, HostListener } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -142,6 +142,12 @@ interface SegFormReport {
   };
 }
 
+interface DropdownItem {
+  label: string;
+  icon: string;
+  path: string;
+}
+
 @Component({
   selector: 'app-seg-main-component',
   standalone: true,
@@ -166,6 +172,18 @@ interface SegFormReport {
 export class SegMainComponentComponent implements OnInit, OnDestroy {
   activeSubPath: string = 'dashboard';
   searchText: string = '';
+  
+  // Master dropdown
+  showMasterDropdown: boolean = false;
+  
+  masterDropdownItems: DropdownItem[] = [
+    { label: 'Ship Master', icon: 'fa-solid fa-database', path: '/masters/ship-group/ship-master' },
+    { label: 'Ship Category', icon: 'fa-solid fa-tags', path: '/masters/ship-group/ship-category' },
+    { label: 'Departments', icon: 'fa-solid fa-building', path: '/masters/ship-group/departments' },
+    { label: 'Section', icon: 'fa-solid fa-sitemap', path: '/masters/ship-group/section' },
+    { label: 'Class', icon: 'fa-solid fa-graduation-cap', path: '/masters/ship-group/class' },
+    { label: 'System Master', icon: 'fa-solid fa-cogs', path: '/masters/system' }
+  ];
   
   // Dual-view architecture properties
   showTableView = true; // Controls which view is shown
@@ -253,10 +271,20 @@ export class SegMainComponentComponent implements OnInit, OnDestroy {
 
   navigateToSeg(subPath: string): void {
     this.activeSubPath = subPath;
+    this.showMasterDropdown = false;
     if(subPath === 'Report'){
       this.reportApicall();
     }
     // For now, we only have one sub-path, so no navigation needed
+  }
+
+  masterDropdown(): void {
+    this.showMasterDropdown = !this.showMasterDropdown;
+  }
+
+  navigateToMaster(item: DropdownItem): void {
+    this.showMasterDropdown = false;
+    this.router.navigate([item.path]);
   }
 
   // Table event handlers
@@ -662,5 +690,13 @@ export class SegMainComponentComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.clearProgressIntervals();
+  }
+
+  @HostListener('document:click', ['$event'])
+  onClickOutside(event: Event) {
+    const target = event.target as HTMLElement;
+    if (!target.closest('.master-dropdown-container')) {
+      this.showMasterDropdown = false;
+    }
   }
 }

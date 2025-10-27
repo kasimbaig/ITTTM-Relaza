@@ -18,6 +18,12 @@ interface HituMenuItem {
   id: number;
 }
 
+interface DropdownItem {
+  label: string;
+  icon: string;
+  path: string;
+}
+
 @Component({
   selector: 'app-hitu-main-component',
   standalone: true,
@@ -29,6 +35,15 @@ interface HituMenuItem {
 export class HituMainComponentComponent implements OnInit, OnDestroy {
   activeSubPath: string = 'dashboard';
   showHituDropdown: boolean = false;
+  showMasterDropdown: boolean = false;
+
+  masterDropdownItems: DropdownItem[] = [
+    { label: 'Ship Master', icon: 'fa-solid fa-database', path: '/masters/ship-group/ship-master' },
+    { label: 'Ship Category', icon: 'fa-solid fa-tags', path: '/masters/ship-group/ship-category' },
+    { label: 'Departments', icon: 'fa-solid fa-building', path: '/masters/ship-group/departments' },
+    { label: 'Section', icon: 'fa-solid fa-sitemap', path: '/masters/ship-group/section' },
+    { label: 'Class', icon: 'fa-solid fa-graduation-cap', path: '/masters/ship-group/class' }
+  ];
 
   hituMenuItems: HituMenuItem[] = [
     {
@@ -93,8 +108,9 @@ export class HituMainComponentComponent implements OnInit, OnDestroy {
   @HostListener('document:click', ['$event'])
   onDocumentClick(event: Event): void {
     const target = event.target as HTMLElement;
-    if (!target.closest('.hitu-dropdown-container')) {
+    if (!target.closest('.hitu-dropdown-container') && !target.closest('.master-dropdown-container')) {
       this.showHituDropdown = false;
+      this.showMasterDropdown = false;
     }
   }
 
@@ -110,12 +126,24 @@ export class HituMainComponentComponent implements OnInit, OnDestroy {
 
     } else {
       this.showHituDropdown = false;
+      this.showMasterDropdown = false;
       this.router.navigate([subPath], { relativeTo: this.activatedRoute });
     }
   }
 
   toggleHituDropdown(): void {
     this.showHituDropdown = !this.showHituDropdown;
+    this.showMasterDropdown = false;
+  }
+
+  masterDropdown(): void {
+    this.showMasterDropdown = !this.showMasterDropdown;
+    this.showHituDropdown = false;
+  }
+
+  navigateToMaster(item: DropdownItem): void {
+    this.showMasterDropdown = false;
+    this.router.navigate([item.path]);
   }
 
   navigateToHituSubItem(hituPath: string): void {

@@ -13,6 +13,30 @@
             </button>
         </div>
         
+        <!-- Master Button with Dropdown Toggle -->
+        <div class="relative master-dropdown-container text-sm">
+            <button
+                class="nav-item flex items-center px-4 py-2 rounded-lg transition-all duration-200 ease-in-out"
+                [ngClass]="{'active bg-blue-600 text-white shadow-lg': showMasterDropdown, 'text-gray-700 hover:bg-blue-600 -50': !showMasterDropdown}"
+                (click)="masterDropdown()">
+                <i class="fa-solid fa-database mr-2"></i>
+                <span>Master</span>
+                <i class="fa-solid ml-2 text-xs"
+                    [ngClass]="showMasterDropdown ? 'fa-chevron-up' : 'fa-chevron-down'"></i>
+            </button>
+
+            <!-- Master Dropdown Menu -->
+            <div *ngIf="showMasterDropdown"
+                class="absolute z-20 bg-white rounded-xl shadow-lg py-2 mt-2 w-64 origin-top-right ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <button *ngFor="let item of masterDropdownItems"
+                    class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 flex items-center transition-colors duration-150 ease-in-out"
+                    (click)="navigateToMaster(item)">
+                    <i [ngClass]="item.icon" class="mr-3 w-5 text-center text-blue-600"></i>
+                    {{ item.label }}
+                </button>
+            </div>
+        </div>
+        
         <!-- HITU Forms Button with Dropdown Toggle -->
         <div class="relative hitu-dropdown-container">
             <button

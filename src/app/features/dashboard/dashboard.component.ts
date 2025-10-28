@@ -166,61 +166,61 @@ export class DashboardComponent implements OnInit, OnDestroy {
 
   kpiMetrics = [
     {
-      title: 'Total Equipment',
-      value: 320,
-      description: 'Total equipment across all units.',
+      title: 'Open Requisitions',
+      value: 245,
+      description: 'Total open requisitions across all units.',
       iconClass: 'pi pi-cog',
-      type: 'TOTAL_EQUIPMENT',
+      type: 'OPEN_REQUISITIONS',
       backgroundColor: 'white',
       iconColor: '#022B5A',
       titleColor: '#022B5A',
       valueColor: '#022B5A',
-      trendPercentage: '5.8%',
+      trendPercentage: '3.2%',
       trendDirection: 'up'
     },
     {
-      title: 'Active Tasks',
-      value: 124,
+      title: 'Pending Approvals (by Unit) ',
+      value: 87,
       iconClass: 'pi pi-calendar',
-      type: 'ACTIVE_MAINTENANCE_TASKS',
+      type: 'PENDING_APPROVALS_BY_UNIT',
       backgroundColor: 'white',
       iconColor: '#6B7C8F',
       titleColor: '#6B7C8F',
       valueColor: '#6B7C8F',
-      progressBarValue: 78,
+      progressBarValue: 62,
     },
     {
-      title: 'Open Defects',
-      value: 47,
+      title: 'Ongoing Trials',
+      value: 34,
       iconClass: 'pi pi-exclamation-triangle',
-      type: 'OPEN_DEFECTS',
+      type: 'ONGOING_TRIALS',
       backgroundColor: 'white',
       iconColor: '#E53935',
       titleColor: '#E53935',
       valueColor: '#E53935',
-      severityDetails: { critical: 12, major: 18, minor: 17 }
+      severityDetails: { critical: 8, major: 15, minor: 11 }
     },
     {
-      title: 'Equipment Fit Progress',
-      value: '95%',
+      title: 'Reports Approved / Generated',
+      value: '100%',
       iconClass: 'pi pi-check-square',
-      type: 'EQUIPMENT_FIT_PROGRESS',
+      type: 'REPORTS_APPROVED_GENERATED',
       backgroundColor: 'white',
       iconColor: '#4CAF50',
       titleColor: '#4CAF50',
       valueColor: '#4CAF50',
-      subText: '304/320 systems'
+      subText: '191/245 systems'
     },
     {
-      title: 'Task Completion Rate',
-      value: '88%',
+      title: 'SLA Compliance %',
+      value: '92%',
       iconClass: 'pi pi-chart-line',
-      type: 'TASK_COMPLETION_RATE',
+      type: 'SLA_COMPLIANCE_PERCENTAGE',
       backgroundColor: 'white',
       iconColor: '#FF6B35',
       titleColor: '#FF6B35',
       valueColor: '#FF6B35',
-      subText: '8 overdue tasks'
+      subText: '5 overdue tasks'
     },
   ];
 

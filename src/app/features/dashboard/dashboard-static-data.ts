@@ -519,18 +519,18 @@ export interface StaticDefectDetail {
 
 // Static defect list chart data
 export const STATIC_DEFECT_LIST_DATA: StaticDefectListData = {
-  labels: ['Pump', 'Valve', 'Generator', 'Compressor', 'Radar', 'Sonar', 'HVAC', 'Navigation'],
+  labels: ['Total Requisitions Initiated', 'Pending Approvals (by Unit)', 'Ongoing Trials', 'Reports Approved / Generated', 'SLA Compliance %',],
   datasets: [
     {
-      label: 'Defects',
+      label: 'Overall Projection',
       backgroundColor: '#FFA726',
       data: [12, 5, 9, 3, 7, 4, 6, 8]
     },
-    {
-      label: 'RA Projection',
-      backgroundColor: '#EC407A',
-      data: [10, 7, 6, 4, 8, 5, 7, 9]
-    }
+    // {
+    //   label: 'Current Month',
+    //   backgroundColor: '#EC407A',
+    //   data: [10, 7, 6, 4, 8, 5, 7, 9]
+    // }
   ]
 };
 

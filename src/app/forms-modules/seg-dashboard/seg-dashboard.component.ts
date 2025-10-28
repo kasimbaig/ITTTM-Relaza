@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SararDashboardComponent } from '../seg-main-component/sarar-dashboard/sarar-dashboard.component';
+import { CombinedDashboardComponent } from '../seg-main-component/sarar-dashboard/sarar-dashboard.component';
 
 @Component({
   selector: 'app-seg-dashboard',
   standalone: true,
   imports: [
     CommonModule,
-    SararDashboardComponent
+    CombinedDashboardComponent
   ],
   templateUrl: './seg-dashboard.component.html',
   styleUrls: ['./seg-dashboard.component.css']

@@ -100,8 +100,8 @@ export class ProjectionChartComponent implements OnInit, OnChanges {
       return;
     }
 
-    const xAxisTitle = 'Running Hours';
-    const yAxisTitle = 'Defects';
+    const xAxisTitle = 'Average Turnaround Time Trend';
+    const yAxisTitle = 'Time Period';
 
     // Determine which projection to use
     let projectionKey: string | null = null;

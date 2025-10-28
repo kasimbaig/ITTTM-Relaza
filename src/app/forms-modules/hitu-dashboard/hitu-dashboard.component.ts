@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SararDashboardComponent } from '../hitu-main-component/sarar-dashboard/sarar-dashboard.component';
+import { CombinedDashboardComponent } from '../hitu-main-component/sarar-dashboard/sarar-dashboard.component';
 
 @Component({
   selector: 'app-hitu-dashboard',
   standalone: true,
   imports: [
     CommonModule,
-    SararDashboardComponent
+    CombinedDashboardComponent
   ],
   templateUrl: './hitu-dashboard.component.html',
   styleUrls: ['./hitu-dashboard.component.css']

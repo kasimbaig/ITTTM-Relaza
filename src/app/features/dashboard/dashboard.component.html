@@ -179,15 +179,8 @@
       <div class="w-full ">
         <app-ocrc [menuExpanded]="menuExpanded"></app-ocrc>
       </div>
-      <div class="chart-container mt-3">
-        <app-defect-list
-      [command]="selectedCommand !== null ? selectedCommand.toString() : null"
-      [ship]="selectedShip !== null ? selectedShip.toString() : null"
-      [dept]="selectedDept !== null ? selectedDept.toString() : null"
-    ></app-defect-list>
-      </div>
     </div>
-
+    <app-projection-chart ></app-projection-chart>
     <div class="charts-section w-full max-w-full mt-4">
       <div class="chart-container">
         <!-- Convert selectedCommand, selectedShip, selectedDept to string if not null -->
@@ -199,8 +192,15 @@
         <app-frequent-defects [chartData]="frequentDefectData"></app-frequent-defects>
       </div>
     </div>
+    <div class="chart-container mt-3">
+      <app-defect-list
+    [command]="selectedCommand !== null ? selectedCommand.toString() : null"
+    [ship]="selectedShip !== null ? selectedShip.toString() : null"
+    [dept]="selectedDept !== null ? selectedDept.toString() : null"
+  ></app-defect-list>
+    </div>
    
-    <app-projection-chart ></app-projection-chart>
+   
     <!-- Fleet Status Section -->
      <!-- <div class="bg-white p-4 rounded-xl shadow-lg w-full max-w-full"> -->
 
